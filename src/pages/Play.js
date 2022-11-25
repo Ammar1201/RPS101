@@ -23,7 +23,7 @@ const Play = () => {
               <Link to='/play/player-vs-ai' ><img src='../assets/imgs/player-vs-ai.png' alt="player-vs-AI" /></Link>
             </div>
         </div>
-      </div>4
+      </div>
     </div> 
   );
 }

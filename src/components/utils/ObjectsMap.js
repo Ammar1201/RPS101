@@ -1,7 +1,9 @@
 const ObjectsMap = () => {
   return ( 
     <div>
-      ObjectsMap
+      <div className="container">
+        
+      </div>
     </div> 
   );
 }

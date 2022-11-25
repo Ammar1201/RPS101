@@ -7,7 +7,9 @@ import Wiki from "./pages/Wiki";
 import Play from "./pages/Play";
 import ScoreBoard from "./pages/ScoreBoard";
 import Spinner from "./components/utils/Spinner";
-import PlayerVsPlayer from "./pages/PlayerVsPlayer";
+import PlayerNames from "./components/PlayerNames";
+import Player from "./components/Player";
+import AI from "./components/AI";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,9 +22,10 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/wiki" element={<Wiki />} />
         <Route path="/play" element={<Play />} />
+        <Route path="/play/:mode" element={<PlayerNames setIsLoading={setIsLoading} />} />
+        <Route path="/play/player" element={<Player setIsLoading={setIsLoading} />} />
+        <Route path="/play/ai" element={<AI setIsLoading={setIsLoading} />} />
         <Route path="/scoreboard" element={<ScoreBoard />} />
-        <Route path="/play-vs-player" element={<PlayerVsPlayer setIsLoading={setIsLoading} />} />
-        <Route path="/play-vs-ai" element={<Play />} />
       </Routes>
     </Fragment>
   );
