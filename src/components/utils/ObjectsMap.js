@@ -1,18 +1,21 @@
 import React from'react';
 import { objectsSrcName } from '../../data';
+import Card from './Card';
 import classes from './ObjectsMap.module.css';
 
-const ObjectsMap = () => {
+const ObjectsMap = ({getObjectID}) => {
+  const sendID = ({target}) => {
+    if (target.id === '') {
+      return;
+    }
+    getObjectID(target.id);
+  };
+
   return ( 
     <div>
-      <div className={classes.container}>
+      <div className={classes.container}  onClickCapture={sendID}>
         {Object.values(objectsSrcName).map(object => {
-          return (
-            <div key={object.name} className={classes.card}>
-              <img src={object.src} alt={object.name} />
-              <h4>{object.name}</h4>
-            </div>
-          );
+          return ( <Card object={object} /> );
         })}
       </div>
     </div> 
