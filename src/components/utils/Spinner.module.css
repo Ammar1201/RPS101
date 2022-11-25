@@ -1,7 +1,7 @@
 /*! Loading Spinner */
-.loader {
-  border: 10px solid #333; /* Light grey - f3f3f3 */
-  border-top: 10px solid #fff; /* Blue - 3498db */
+/* .loader {
+  border: 10px solid #333; 
+  border-top: 10px solid #fff; 
   border-radius: 50%;
   width: 100px;
   height: 100px;
@@ -23,4 +23,79 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+} */
+
+.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(26, 26, 26, .2);
+}
+
+@keyframes loader-out {
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+#loader.loaded {
+  animation: loader-out .3s both;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 3px solid;
+  border-color: 
+    #f9f9f9 #f9f9f9
+    transparent transparent;
+  scale: 1.5;
+  animation: rotation 1s linear infinite;
+}
+
+.loader::after,
+.loader::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  border: 3px solid;
+  border-color: 
+    transparent transparent
+    #8f44fd #8f44fd;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transform-origin: center center;
+  animation: rotationBack .5s linear infinite;
+}
+
+.loader::before {
+  width: 32px;
+  height: 32px;
+  border-color: 
+    #3498db #3498db
+    transparent transparent;
+  animation: rotation 1.5s linear infinite
+}
+
+@keyframes rotation {
+  0% { rotate: 0deg; }
+  100% { rotate: 360deg; }
+}
+
+@keyframes rotationBack {
+  0% { rotate: 0deg; }
+  100% { rotate: -360deg; }
 }
