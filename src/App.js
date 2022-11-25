@@ -17,6 +17,8 @@ const App = () => {
         <Route path="/wiki" element={<Wiki />} />
         <Route path="/play" element={<Play />} />
         <Route path="/scoreboard" element={<ScoreBoard />} />
+        <Route path="/play-vs-player" element={<Play />} />
+        <Route path="/play-vs-ai" element={<Play />} />
       </Routes>
     </Fragment>
   );
