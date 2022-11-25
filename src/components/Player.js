@@ -1,7 +1,9 @@
-const Player = () => {
+import ObjectsMap from "./utils/ObjectsMap";
+
+const Player = ({setIsLoading}) => {
   return ( 
     <div>
-      Player
+      <ObjectsMap setIsLoading={setIsLoading} />
     </div> 
   );
 }

@@ -17,6 +17,7 @@ const Inputs = () => {
               <input type="text" />
             </div>
             <Link to='/play/player'>Start</Link>
+            <h3>*Make Sure Your Opponent NOT Looking! :)</h3>
         </div>
       </div> : <div></div>}
       {mode === 'player-vs-ai' ? <div className={classes.container}>
