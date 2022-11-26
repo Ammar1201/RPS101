@@ -16,5 +16,27 @@ export const useFetch = (setIsLoading) => {
         .finally(() => setIsLoading(false));
     };
 
-    return { data, error, fetchData };
+    const getMatch = (url, object1, object2) => {
+      setIsLoading(true);
+      axios.get(url + `/match?object_one=${object1}&object_two=${object2}`)
+        .then(data => {
+          setData(data.data);
+          return data.data;
+        })
+        .catch(error => {
+          setError(error);
+          console.log(error);
+        })
+        .finally(() => setIsLoading(false));
+    };
+    
+    // const res = await axios({
+    //   method: 'post',
+    //   url: baseUrl,
+    //   data: {
+    //     content: inputValue,
+    //     completed: false
+    //   }
+    // })
+    return { data, error, fetchData, getMatch, setData };
 };

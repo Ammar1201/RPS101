@@ -1,51 +1,35 @@
-.container {
-  height: 70vh;
-  width: 100%;
+.player {
+  width: 40%;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 2rem;
+  margin-top: 50px;
+}
+
+.counts {
+  display: flex;
+  column-gap: 2rem;
+}
+
+.object {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.group {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  text-align: center;
-}
-
-.group input {
-  width: 400px;
-  height: 40px;
-  font-size: 1.2rem;
-  border-radius: 20px;
-  outline: none;
+.object h4 {
   font-size: 1.5rem;
-}
-
-.group h3 {
-  font-size: 2rem;
   font-weight: bold;
+  margin-bottom: 1rem;
 }
 
-.content {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-}
-
-.content > h3 {
-  color: coral;
-}
-
-.content a {
-  margin-top: 20px;
+.player button {
   text-decoration: none;
   color: #fff;
-  width: 200px;
+  width: 300px;
   height: 50px;
   padding: 1rem 4rem;
   text-align: center;
@@ -57,9 +41,10 @@
   border-radius: 15px;
   text-transform: title;
   z-index: 1;
+  border: none;
 }
 
-.content a::before {
+.player button::before {
   content: '';
   z-index: -1;
   background: linear-gradient(
@@ -71,12 +56,12 @@
   transition: 1s;
 }
 
-.content a:hover {
+.player button:hover {
   animation: animation 8s linear infinite;
   border: none;
 }
 
-.content a:hover::before {
+.player button:hover::before {
   filter: blur(20px);
 }
 

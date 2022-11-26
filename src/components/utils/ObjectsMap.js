@@ -15,7 +15,7 @@ const ObjectsMap = ({getObjectID}) => {
     <div>
       <div className={classes.container}  onClickCapture={sendID}>
         {Object.values(objectsSrcName).map(object => {
-          return ( <Card object={object} /> );
+          return ( <Card object={object} key={object.name} /> );
         })}
       </div>
     </div> 
