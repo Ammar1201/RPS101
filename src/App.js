@@ -8,8 +8,8 @@ import Play from "./pages/Play";
 import ScoreBoard from "./pages/ScoreBoard";
 import Spinner from "./components/utils/Spinner";
 import PlayerNames from "./components/PlayerNames";
-import PlayerVSPlayer from "./components/PlayerVSPlayer";
-import AI from "./components/AI";
+import PlayerVsPlayer from "./components/PlayerVsPlayer";
+import PlayerVsAI from "./components/PlayerVsAI";
 import Message from "./components/utils/Message";
 
 const App = () => {
@@ -25,9 +25,9 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/wiki" element={<Wiki />} />
         <Route path="/play" element={<Play />} />
-        <Route path="/play/:mode" element={<PlayerNames setIsLoading={setIsLoading} />} />
-        <Route path="/play/player" element={<PlayerVSPlayer setIsLoading={setIsLoading} setMessage={setMessage} />} />
-        <Route path="/play/ai" element={<AI setIsLoading={setIsLoading} />} />
+        <Route path="/play/:mode" element={<PlayerNames setIsLoading={setIsLoading} setMessage={setMessage} />} />
+        <Route path="/play/player" element={<PlayerVsPlayer setIsLoading={setIsLoading} setMessage={setMessage} />} />
+        <Route path="/play/ai" element={<PlayerVsAI setIsLoading={setIsLoading} />} />
         <Route path="/scoreboard" element={<ScoreBoard />} />
       </Routes>
     </Fragment>

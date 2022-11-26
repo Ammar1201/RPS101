@@ -3,7 +3,7 @@ import Card from './utils/Card';
 import { objectsSrcName } from '../data';
 import classes from './Player.module.css';
 
-const Player = ({player, dispatch, name, setMessage}) => {
+const Player = ({player, dispatch, name, setMessage, checkResult}) => {
   const confirmChoice = () => {
     if(player.isPlaying) {
       if(player.chosenObjectId === null) {
@@ -11,6 +11,10 @@ const Player = ({player, dispatch, name, setMessage}) => {
         return;
       }
       dispatch({type: `${name}_DONE_PLAYING`});
+    }
+    if(player.ai !== undefined) {
+      const index = Math.floor(Math.random() * Object.keys(objectsSrcName).length);
+      dispatch({type: 'AI_OBJECT_ID', id: Object.keys(objectsSrcName)[index], checkResult});
     }
   };
 
@@ -30,4 +34,4 @@ const Player = ({player, dispatch, name, setMessage}) => {
   )
 }
 
-export default Player
+export default Player;

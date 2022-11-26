@@ -3,6 +3,7 @@ import ObjectsMap from "./utils/ObjectsMap";
 import Player from './Player';
 import classes from './PlayerVSPlayer.module.css';
 import axios from 'axios';
+import AI from './AI';
 
 const playersReducer = (state, action) => {
   if(action.type === 'PLAYER1_OBJECT_ID') {
@@ -14,43 +15,45 @@ const playersReducer = (state, action) => {
       }
     }
   }
-  if(action.type === 'PLAYER2_OBJECT_ID') {
+  if(action.type === 'AI_OBJECT_ID') {
+    action.checkResult(action.id);
     return {
       ...state,
-      player2: {
-        ...state.player2,
-        chosenObjectId: action.id
+      ai: {
+        ...state.ai,
+        chosenObjectId: action.id,
+        isPlaying: false
       }
     }
   }
-  if(action.type === 'Player 1_DONE_PLAYING') {
+  if(action.type === 'Player_DONE_PLAYING') {
     return {
       ...state,
       player1: {
         ...state.player1,
         isPlaying: false,
       },
-      player2: {
-        ...state.player2,
+      ai: {
+        ...state.ai,
         isPlaying: true,
       }
     }
   };
-  if(action.type === 'Player 2_DONE_PLAYING') {
-    return {
-      ...state,
-      player2: {
-        ...state.player2,
-        isPlaying: false,
-      }
-    };
-  }
-  if(action.type === 'DISABLE_PLAY_BUTTON') {
-    return {
-      ...state,
-      disable: true
-    };
-  }
+  // if(action.type === 'AI_DONE_PLAYING') {
+  //   return {
+  //     ...state,
+  //     ai: {
+  //       ...state.ai,
+  //       isPlaying: false,
+  //     }
+  //   };
+  // }
+  // if(action.type === 'DISABLE_PLAY_BUTTON') {
+  //   return {
+  //     ...state,
+  //     disable: true
+  //   };
+  // }
   if(action.type === 'RESET_ROUND') {
     return {
       player1: {
@@ -58,8 +61,8 @@ const playersReducer = (state, action) => {
         isPlaying: true,
         chosenObjectId: null,
       },
-      player2: {
-        ...state.player2,
+      ai: {
+        ...state.ai,
         isPlaying: false,
         chosenObjectId: null,
       },
@@ -74,9 +77,9 @@ const playersReducer = (state, action) => {
           ...state.player1,
           wins: state.player1.wins + 1
         },
-        player2: {
-          ...state.player2,
-          loses: state.player2.loses + 1
+        ai: {
+          ...state.ai,
+          loses: state.ai.loses + 1
         }
       }
     }
@@ -87,9 +90,9 @@ const playersReducer = (state, action) => {
           ...state.player1,
           loses: state.player1.loses + 1
         },
-        player2: {
-          ...state.player2,
-          wins: state.player2.wins + 1
+        ai: {
+          ...state.ai,
+          wins: state.ai.wins + 1
         }
       }
     }
@@ -104,9 +107,10 @@ const PlayerVSPlayer = ({setIsLoading, setMessage}) => {
       isPlaying: true,
       chosenObjectId: null,
       wins: 0,
-      loses: 0
+      loses: 0,
+      ai: true
     }, 
-    player2: {
+    ai: {
       isPlaying: false,
       chosenObjectId: null,
       wins: 0,
@@ -119,17 +123,15 @@ const PlayerVSPlayer = ({setIsLoading, setMessage}) => {
     if(players.player1.isPlaying) {
       dispatch({type: 'PLAYER1_OBJECT_ID', id: id});
     }
-    else {
-      dispatch({type: 'PLAYER2_OBJECT_ID', id: id});
-    }
   };
 
-  const checkResult = () => {
-    const getMatch = (url, object1, object2) => {
+  const checkResult = (object2) => {
+    const getMatch = (url, object1) => {
       setIsLoading(true);
       axios.get(url + `/match?object_one=${object1}&object_two=${object2}`)
         .then(data => {
           dispatch({type: 'RESULT', payload: data.data});
+          console.log(data.data);
           setData(data.data);
         })
         .catch(error => {
@@ -137,8 +139,8 @@ const PlayerVSPlayer = ({setIsLoading, setMessage}) => {
         })
         .finally(() => setIsLoading(false));
     };
-    getMatch('https://rps101.pythonanywhere.com/api/v1', players.player1.chosenObjectId, players.player2.chosenObjectId);
-    dispatch({type: 'DISABLE_PLAY_BUTTON'});
+    getMatch('https://rps101.pythonanywhere.com/api/v1', players.player1.chosenObjectId);
+    // dispatch({type: 'DISABLE_PLAY_BUTTON'});
   };
 
   const resetRound = () => {
@@ -149,16 +151,15 @@ const PlayerVSPlayer = ({setIsLoading, setMessage}) => {
   return ( 
     <div>
       <div className={classes.container}>
-        <Player player={players.player1} dispatch={dispatch} name='Player 1' setMessage={setMessage} />
+        <Player player={players.player1} dispatch={dispatch} name='Player' setMessage={setMessage} checkResult={checkResult} />
         <div className={classes.content}>
-          <h1 className={classes.vs}>Player1 VS Player2</h1>
-          <h2>{players.player1.isPlaying ? 'Player1 Choosing...' : !players.player1.isPlaying && !players.player2.isPlaying ? 'Check Result ?' : 'Player2 Choosing...'}</h2>
-          {!players.player1.isPlaying && !players.player2.isPlaying && <button disabled={players.disable} onClick={checkResult}>Play</button>}
+          <h1 className={classes.vs}>Player VS AI</h1>
+          <h2>{players.player1.isPlaying ? 'Player Choosing...' : !players.player1.isPlaying && !players.ai.isPlaying ? '' : 'AI Choosing...'}</h2>
           {data && <h2>{`${data.winner} ${data.outcome} ${data.loser}`}</h2>}
-          {data && <h2>{players.player1.chosenObjectId === data.winner ? 'player 1 won. good luck next time player 2' : 'player 2 won. good luck next time player 1'}</h2>}
+          {data && <h2>{players.player1.chosenObjectId === data.winner ? 'Player won. congrats!' : 'AI won. good luck next time Player'}</h2>}
           {data && <button onClick={resetRound}>Play Again</button>}
         </div>
-        <Player player={players.player2} dispatch={dispatch} name='Player 2' setMessage={setMessage} />
+        <AI ai={players.ai} name='AI' dispatch={dispatch} setMessage={setMessage} />
       </div>
       <ObjectsMap getObjectID={getObjectID} />
     </div> 
