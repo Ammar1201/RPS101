@@ -16,7 +16,6 @@ const playersReducer = (state, action) => {
     }
   }
   if(action.type === 'AI_OBJECT_ID') {
-    action.checkResult(action.id);
     return {
       ...state,
       ai: {
@@ -39,21 +38,6 @@ const playersReducer = (state, action) => {
       }
     }
   };
-  // if(action.type === 'AI_DONE_PLAYING') {
-  //   return {
-  //     ...state,
-  //     ai: {
-  //       ...state.ai,
-  //       isPlaying: false,
-  //     }
-  //   };
-  // }
-  // if(action.type === 'DISABLE_PLAY_BUTTON') {
-  //   return {
-  //     ...state,
-  //     disable: true
-  //   };
-  // }
   if(action.type === 'RESET_ROUND') {
     return {
       player1: {
@@ -128,10 +112,15 @@ const PlayerVSPlayer = ({setIsLoading, setMessage}) => {
   const checkResult = (object2) => {
     const getMatch = (url, object1) => {
       setIsLoading(true);
-      axios.get(url + `/match?object_one=${object1}&object_two=${object2}`)
+      axios(url + `/match?object_one=${object1}&object_two=${object2}`,{
+        mode: 'no-cors',
+        method: "get",
+        headers: {
+          "Content-Type": "application/json"
+        },
+      })
         .then(data => {
           dispatch({type: 'RESULT', payload: data.data});
-          console.log(data.data);
           setData(data.data);
         })
         .catch(error => {
@@ -140,7 +129,6 @@ const PlayerVSPlayer = ({setIsLoading, setMessage}) => {
         .finally(() => setIsLoading(false));
     };
     getMatch('https://rps101.pythonanywhere.com/api/v1', players.player1.chosenObjectId);
-    // dispatch({type: 'DISABLE_PLAY_BUTTON'});
   };
 
   const resetRound = () => {

@@ -3,17 +3,7 @@ import Card from './utils/Card';
 import { objectsSrcName } from '../data';
 import classes from './Player.module.css';
 
-const AI = ({ai, dispatch, name, setMessage}) => {
-  // const confirmChoice = () => {
-  //   if(ai.isPlaying) {
-  //     if(ai.chosenObjectId === null) {
-  //       setMessage('Please select an object');
-  //       return;
-  //     }
-  //     dispatch({type: `${name}_DONE_PLAYING`});
-  //   }
-  // };
-
+const AI = ({ai}) => {
   return (
     <div className={classes.player}>
       <h2>AI</h2>
@@ -23,7 +13,9 @@ const AI = ({ai, dispatch, name, setMessage}) => {
       </div>
       <div className={classes.object}>
         <h4>Chosen Object:</h4>
-        {ai.chosenObjectId && <Card object={objectsSrcName[ai.chosenObjectId]} />}
+        <div className={classes.innerObject}>
+          {ai.chosenObjectId && <Card object={objectsSrcName[ai.chosenObjectId]} />}
+        </div>
       </div>
     </div>
   )

@@ -26,6 +26,13 @@
   margin-bottom: 1rem;
 }
 
+.innerObject {
+  width: 150px;
+  height: 175px;
+  border: 1px solid #f441a5;
+  border-radius: 25%;
+}
+
 .player button {
   text-decoration: none;
   color: #fff;

@@ -127,9 +127,14 @@ const PlayerVSPlayer = ({setIsLoading, setMessage}) => {
   const checkResult = () => {
     const getMatch = (url, object1, object2) => {
       setIsLoading(true);
-      axios.get(url + `/match?object_one=${object1}&object_two=${object2}`)
+      axios(url + `/match?object_one=${object1}&object_two=${object2}`, {
+        mode: 'no-cors',
+        method: "get",
+        headers: {
+          "Content-Type": "application/json"
+        },
+      })
         .then(data => {
-          dispatch({type: 'RESULT', payload: data.data});
           setData(data.data);
         })
         .catch(error => {
@@ -153,7 +158,8 @@ const PlayerVSPlayer = ({setIsLoading, setMessage}) => {
         <div className={classes.content}>
           <h1 className={classes.vs}>Player1 VS Player2</h1>
           <h2>{players.player1.isPlaying ? 'Player1 Choosing...' : !players.player1.isPlaying && !players.player2.isPlaying ? 'Check Result ?' : 'Player2 Choosing...'}</h2>
-          {!players.player1.isPlaying && !players.player2.isPlaying && <button disabled={players.disable} onClick={checkResult}>Play</button>}
+          {!players.player1.isPlaying && !players.player2.isPlaying && <button disabled={players.disable} onClick={checkResult}>Check</button>}
+          {!players.player1.isPlaying && !players.player2.isPlaying && <button disabled={players.disable} onClick={resetRound}>Cancel</button>}
           {data && <h2>{`${data.winner} ${data.outcome} ${data.loser}`}</h2>}
           {data && <h2>{players.player1.chosenObjectId === data.winner ? 'player 1 won. good luck next time player 2' : 'player 2 won. good luck next time player 1'}</h2>}
           {data && <button onClick={resetRound}>Play Again</button>}

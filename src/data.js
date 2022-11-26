@@ -376,7 +376,7 @@ export const objectsSrcName = {
     src: '../assets/imgs/objects/Vampire.png'
   },
   VideoGame: {
-    name: 'Video Game',
+    name: 'VideoGame',
     src: '../assets/imgs/objects/VideoGame.gif'
   },
   Vulture: {

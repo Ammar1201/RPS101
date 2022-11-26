@@ -14,7 +14,8 @@ const Player = ({player, dispatch, name, setMessage, checkResult}) => {
     }
     if(player.ai !== undefined) {
       const index = Math.floor(Math.random() * Object.keys(objectsSrcName).length);
-      dispatch({type: 'AI_OBJECT_ID', id: Object.keys(objectsSrcName)[index], checkResult});
+      dispatch({type: 'AI_OBJECT_ID', id: Object.keys(objectsSrcName)[index]});
+      checkResult(Object.keys(objectsSrcName)[index]);
     }
   };
 
@@ -27,7 +28,9 @@ const Player = ({player, dispatch, name, setMessage, checkResult}) => {
       </div>
       <div className={classes.object}>
         <h4>Chosen Object:</h4>
-        {player.chosenObjectId && <Card object={objectsSrcName[player.chosenObjectId]} />}
+        <div className={classes.innerObject}>
+          {player.chosenObjectId && <Card object={objectsSrcName[player.chosenObjectId]} />}
+        </div>
       </div>
       <button disabled={!player.isPlaying} onClick={confirmChoice}>Confirm Choice</button>
     </div>
