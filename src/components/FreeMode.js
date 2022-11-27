@@ -1,7 +1,7 @@
 import React, { useReducer, useState } from 'react'
 import ObjectsMap from "./utils/ObjectsMap";
 import Player from './Player';
-import classes from './PlayerVSPlayer.module.css';
+import classes from './PlayerVsPlayer.module.css';
 import axios from 'axios';
 import AI from './AI';
 
