@@ -41,7 +41,7 @@
   color: coral;
 }
 
-.content a {
+.content button {
   margin-top: 20px;
   text-decoration: none;
   color: #fff;
@@ -57,9 +57,10 @@
   border-radius: 15px;
   text-transform: title;
   z-index: 1;
+  border: none;
 }
 
-.content a::before {
+.content button::before {
   content: '';
   z-index: -1;
   background: linear-gradient(
@@ -71,12 +72,12 @@
   transition: 1s;
 }
 
-.content a:hover {
+.content button:hover {
   animation: animation 8s linear infinite;
   border: none;
 }
 
-.content a:hover::before {
+.content button:hover::before {
   filter: blur(20px);
 }
 

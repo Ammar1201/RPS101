@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import PlayerVsPlayer from './PlayerVsPlayer';
+import PlayerVsAI from './PlayerVsAI';
 import classes from './PlayerNames.module.css';
 
-const PlayerNames = () => {
+const PlayerNames = ({setIsLoading , setMessage}) => {
   const { mode } = useParams();
+  const [showGame, setShowGame] = useState('');
   const [names, setNames] = useState({
     player1: '',
     player2: ''
@@ -11,7 +14,7 @@ const PlayerNames = () => {
 
   return (
     <div>
-      {mode === 'player-vs-player' ? <div className={classes.container}>
+      {mode === 'player-vs-player' && !showGame && <div className={classes.container}>
         <div className={classes.content}>
             <div className={classes.group}>
               <h3>Enter Player 1 Name</h3>
@@ -25,11 +28,11 @@ const PlayerNames = () => {
                 return {...prev, player2: target.value };
               })} />
             </div>
-            <Link to='/play/player' >Start</Link>
+            <button onClick={() => setShowGame('2players')}>Start</button>
             <h3>*Make Sure Your Opponent NOT Looking! :)</h3>
         </div>
-      </div> : <div></div>}
-      {mode === 'player-vs-ai' ? <div className={classes.container}>
+      </div>}
+      {mode === 'player-vs-ai' && !showGame && <div className={classes.container}>
         <div className={classes.content}>
             <div className={classes.group}>
               <h3>Enter Player Name</h3>
@@ -37,9 +40,11 @@ const PlayerNames = () => {
                 return {...prev, player1: target.value };
               })} />
             </div>
-            <Link to='/play/ai' >Start</Link>
+            <button onClick={() => setShowGame('ai')}>Start</button>
         </div>
-      </div> : <div></div>}
+      </div>}
+      {showGame === '2players' && <PlayerVsPlayer setIsLoading={setIsLoading} setMessage={setMessage} playersNames={names} />}
+      {showGame === 'ai' && <PlayerVsAI setIsLoading={setIsLoading} setMessage={setMessage} playerName={names.player1} />}
     </div>
   )
 }

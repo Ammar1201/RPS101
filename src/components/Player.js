@@ -10,7 +10,7 @@ const Player = ({player, dispatch, name, setMessage, checkResult}) => {
         setMessage('Please select an object');
         return;
       }
-      dispatch({type: `${name}_DONE_PLAYING`});
+      dispatch({type: `${name}_DONE_PLAYING`, playerNumber: player.playerNumber, name});
     }
     if(player.ai !== undefined) {
       const index = Math.floor(Math.random() * Object.keys(objectsSrcName).length);

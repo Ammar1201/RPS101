@@ -5,6 +5,7 @@ import classes from './PlayerVSPlayer.module.css';
 import axios from 'axios';
 
 const playersReducer = (state, action) => {
+  console.log(action);
   if(action.type === 'PLAYER1_OBJECT_ID') {
     return {
       ...state,
@@ -23,7 +24,7 @@ const playersReducer = (state, action) => {
       }
     }
   }
-  if(action.type === 'Player 1_DONE_PLAYING') {
+  if(action.playerNumber === 1 && action.type === `${action.name}_DONE_PLAYING`) {
     return {
       ...state,
       player1: {
@@ -36,7 +37,7 @@ const playersReducer = (state, action) => {
       }
     }
   };
-  if(action.type === 'Player 2_DONE_PLAYING') {
+  if(action.playerNumber === 2 && action.type === `${action.name}_DONE_PLAYING`) {
     return {
       ...state,
       player2: {
@@ -96,7 +97,7 @@ const playersReducer = (state, action) => {
   }
 }
 
-const PlayerVSPlayer = ({setIsLoading, setMessage}) => {
+const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames}) => {
   const [data , setData] = useState(null);
 
   const [players, dispatch] = useReducer(playersReducer, {
@@ -104,13 +105,15 @@ const PlayerVSPlayer = ({setIsLoading, setMessage}) => {
       isPlaying: true,
       chosenObjectId: null,
       wins: 0,
-      loses: 0
+      loses: 0,
+      playerNumber: 1
     }, 
     player2: {
       isPlaying: false,
       chosenObjectId: null,
       wins: 0,
-      loses: 0
+      loses: 0,
+      playerNumber: 2
     },
     disable: false
   });
@@ -154,17 +157,18 @@ const PlayerVSPlayer = ({setIsLoading, setMessage}) => {
   return ( 
     <div>
       <div className={classes.container}>
-        <Player player={players.player1} dispatch={dispatch} name='Player 1' setMessage={setMessage} />
+        {console.log(players)}
+        <Player player={players.player1} dispatch={dispatch} name={playersNames.player1} setMessage={setMessage} />
         <div className={classes.content}>
-          <h1 className={classes.vs}>Player1 VS Player2</h1>
-          <h2>{players.player1.isPlaying ? 'Player1 Choosing...' : !players.player1.isPlaying && !players.player2.isPlaying ? 'Check Result ?' : 'Player2 Choosing...'}</h2>
+          <h1 className={classes.vs}>{`${playersNames.player1} VS ${playersNames.player2}`}</h1>
+          <h2>{players.player1.isPlaying ? `${playersNames.player1} Choosing...` : !players.player1.isPlaying && !players.player2.isPlaying ? 'Check Result ?' : `${playersNames.player2} Choosing...`}</h2>
           {!players.player1.isPlaying && !players.player2.isPlaying && <button disabled={players.disable} onClick={checkResult}>Check</button>}
           {!players.player1.isPlaying && !players.player2.isPlaying && <button disabled={players.disable} onClick={resetRound}>Cancel</button>}
           {data && <h2>{`${data.winner} ${data.outcome} ${data.loser}`}</h2>}
-          {data && <h2>{players.player1.chosenObjectId === data.winner ? 'player 1 won. good luck next time player 2' : 'player 2 won. good luck next time player 1'}</h2>}
+          {data && <h2>{players.player1.chosenObjectId === data.winner ? `${playersNames.player1} WON Congrats!` : `${playersNames.player2} WON Congrats!`}</h2>}
           {data && <button onClick={resetRound}>Play Again</button>}
         </div>
-        <Player player={players.player2} dispatch={dispatch} name='Player 2' setMessage={setMessage} />
+        <Player player={players.player2} dispatch={dispatch} name={playersNames.player2} setMessage={setMessage} />
       </div>
       <ObjectsMap getObjectID={getObjectID} />
     </div> 

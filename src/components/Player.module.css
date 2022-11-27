@@ -8,9 +8,19 @@
   margin-top: 50px;
 }
 
+.player h2 {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
 .counts {
   display: flex;
   column-gap: 2rem;
+}
+
+.counts h3 {
+  font-size: 1.5rem;
+  font-weight: bold;;
 }
 
 .object {
