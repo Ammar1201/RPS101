@@ -3,7 +3,8 @@ import ObjectsMap from "./utils/ObjectsMap";
 import Player from './Player';
 import classes from './PlayerVSPlayer.module.css';
 import axios from 'axios';
-import AI from './AI';
+import AI from './AI';import { ref, update } from "firebase/database";
+import { db } from '../firebase';
 
 const playersReducer = (state, action) => {
   if(action.type === 'PLAYER1_OBJECT_ID') {
@@ -102,6 +103,15 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playerName}) => {
     },
   });
 
+  function updateUserData(player) {
+    update(ref(db, 'users/' + player.name), {
+      username: player.name,
+      wins: player.wins,
+      loses: player.loses,
+    })
+    .catch(error => console.log(error));
+  }
+
   const getObjectID = (id) => {
     if(players.player1.isPlaying) {
       dispatch({type: 'PLAYER1_OBJECT_ID', id: id});
@@ -128,6 +138,7 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playerName}) => {
         .finally(() => setIsLoading(false));
     };
     getMatch('https://rps101.pythonanywhere.com/api/v1', players.player1.chosenObjectId);
+    updateUserData({name: playerName, wins: players.player1.wins, loses: players.player1.loses});
   };
 
   const resetRound = () => {

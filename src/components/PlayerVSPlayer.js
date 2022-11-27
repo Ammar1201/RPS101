@@ -3,6 +3,8 @@ import ObjectsMap from "./utils/ObjectsMap";
 import Player from './Player';
 import classes from './PlayerVSPlayer.module.css';
 import axios from 'axios';
+import { ref, update } from "firebase/database";
+import { db } from '../firebase';
 
 const playersReducer = (state, action) => {
   if(action.type === 'PLAYER1_OBJECT_ID') {
@@ -117,6 +119,15 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames}) => {
     disable: false
   });
 
+  function updateUserData(player) {
+    update(ref(db, 'users/' + player.name), {
+      username: player.name,
+      wins: player.wins,
+      loses: player.loses,
+    })
+    .catch(error => console.log(error));
+  }
+
   const getObjectID = (id) => {
     if(players.player1.isPlaying) {
       dispatch({type: 'PLAYER1_OBJECT_ID', id: id});
@@ -129,24 +140,26 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames}) => {
   const checkResult = () => {
     const getMatch = (url, object1, object2) => {
       setIsLoading(true);
-      axios(url + `/match?object_one=${object1}&object_two=${object2}`, {
+      axios(url + `match?object_one=${object1}&object_two=${object2}`, {
         mode: 'no-cors',
         method: "get",
         headers: {
           "Content-Type": "application/json"
         },
       })
-        .then(data => {
-          dispatch({type: 'RESULT', payload: data.data});
-          setData(data.data);
-        })
-        .catch(error => {
-          console.log(error);
-        })
-        .finally(() => setIsLoading(false));
+      .then(data => {
+        dispatch({type: 'RESULT', payload: data.data});
+        setData(data.data);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      .finally(() => setIsLoading(false));
     };
-    getMatch('https://rps101.pythonanywhere.com/api/v1', players.player1.chosenObjectId, players.player2.chosenObjectId);
+    getMatch('https://rps101.pythonanywhere.com/api/v1/', players.player1.chosenObjectId, players.player2.chosenObjectId);
     dispatch({type: 'DISABLE_PLAY_BUTTON'});
+    updateUserData({name: playersNames.player1, wins: players.player1.wins, loses: players.player1.loses});
+    updateUserData({name: playersNames.player2, wins: players.player2.wins, loses: players.player2.loses});
   };
 
   const resetRound = () => {

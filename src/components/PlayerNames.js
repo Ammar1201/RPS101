@@ -1,29 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PlayerVsPlayer from './PlayerVsPlayer';
 import PlayerVsAI from './PlayerVsAI';
 import classes from './PlayerNames.module.css';
 import FreeMode from './FreeMode';
+import { ref, set, onValue } from "firebase/database";
+import { db } from '../firebase';
 
 const PlayerNames = ({setIsLoading , setMessage}) => {
   const { mode } = useParams();
   const [showGame, setShowGame] = useState('');
+  const [previousNames, setPreviousNames] = useState([]);
+
   const [names, setNames] = useState({
     player1: '',
     player2: ''
   });
 
+  useEffect(() => {
+    const readUserData = () => {
+      onValue(ref(db, 'users/'), (snapshot) => {
+        const data = snapshot.val();
+        setPreviousNames(data);
+      })
+    };
+    readUserData();
+  }, []);
+
+  const findUsername = (username) => {
+    return Object.keys(previousNames).find(name => username === name);
+  };
+
+  const writeUserData = (name) => {
+    set(ref(db, 'users/' + name), {
+      username: name,
+      wins: 0,
+      loses: 0,
+    })
+    .catch(error => console.log(error));
+  }
+
   const handleNameChange = ({target}) => {
     if(target.id === 'player1') {
       setNames(prev => {
-        return {...prev, player1: target.value };
+        return {...prev, player1: target.value};
       });
     };
 
     if(target.id === 'player2') {
       setNames(prev => {
-        return {...prev, player2: target.value };
-      })
+        return {...prev, player2: target.value};
+      });
     }
   }
 
@@ -34,12 +61,30 @@ const PlayerNames = ({setIsLoading , setMessage}) => {
         return;
       }
 
+      if(names.player1 === names.player2) {
+        setMessage(`Names can't be the same!`);
+        return;
+      }
+
       if(names.player1.length < 3 || names.player2.length < 3) {
         setMessage(`Names should be at least 3 characters long`);
         return;
       }
 
+      if(findUsername(names.player1)){
+        setMessage(`name ${names.player1} is already taken!`);
+        return;
+      }
+      
+      if(findUsername(names.player2)){
+        setMessage(`name ${names.player2} is already taken!`);
+        return;
+      }
+
+      writeUserData(names.player1);
+      writeUserData(names.player2);
       setShowGame('2players');
+      return;
     };
 
     if(target.id === 'ai') {
@@ -53,7 +98,14 @@ const PlayerNames = ({setIsLoading , setMessage}) => {
         return;
       }
 
-      setShowGame('ai')
+      if(findUsername(names.player1)){
+        setMessage(`name ${names.player1} is already taken!`);
+        return;
+      }
+
+      writeUserData(names.player1);
+      setShowGame('ai');
+      return;
     }
   };
 

@@ -1,7 +1,7 @@
 import classes from './About.module.css';
 
 const About = () => {
-  return ( 
+  return (
     <div className={classes.about}>
       <h1>RPS - Rock, Papers, Scissors</h1>
       <p>
