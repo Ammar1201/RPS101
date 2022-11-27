@@ -5,7 +5,6 @@ import classes from './PlayerVSPlayer.module.css';
 import axios from 'axios';
 
 const playersReducer = (state, action) => {
-  console.log(action);
   if(action.type === 'PLAYER1_OBJECT_ID') {
     return {
       ...state,
@@ -157,7 +156,6 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames}) => {
   return ( 
     <div>
       <div className={classes.container}>
-        {console.log(players)}
         <Player player={players.player1} dispatch={dispatch} name={playersNames.player1} setMessage={setMessage} />
         <div className={classes.content}>
           <h1 className={classes.vs}>{`${playersNames.player1} VS ${playersNames.player2}`}</h1>

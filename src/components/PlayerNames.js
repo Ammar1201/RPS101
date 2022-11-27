@@ -12,23 +12,63 @@ const PlayerNames = ({setIsLoading , setMessage}) => {
     player2: ''
   });
 
+  const handleNameChange = ({target}) => {
+    if(target.id === 'player1') {
+      setNames(prev => {
+        return {...prev, player1: target.value };
+      });
+    };
+    
+    if(target.id === 'player2') {
+      setNames(prev => {
+        return {...prev, player2: target.value };
+      })
+    }
+  }
+
+  const handleClick = ({target}) => {
+    if(target.id === 'players') {
+      if(names.player1 === '' || names.player2 === '') {
+        setMessage(`Names can't be empty!`);
+        return;
+      }
+
+      if(names.player1.length < 3 || names.player2.length < 3) {
+        setMessage(`Names should be at least 3 characters long`);
+        return;
+      }
+
+      setShowGame('2players');
+    };
+
+    if(target.id === 'ai') {
+      if(names.player1 === '') {
+        setMessage(`Your Name can't be empty!`);
+        return;
+      }
+
+      if(names.player1.length < 3) {
+        setMessage(`Your Name should be at least 3 characters long`);
+        return;
+      }
+
+      setShowGame('ai')
+    }
+  };
+
   return (
     <div>
       {mode === 'player-vs-player' && !showGame && <div className={classes.container}>
         <div className={classes.content}>
             <div className={classes.group}>
               <h3>Enter Player 1 Name</h3>
-              <input type="text" value={names.player1} onChange={({target}) => setNames(prev => {
-                return {...prev, player1: target.value };
-              })} />
+              <input id='player1' type="text" value={names.player1} onChange={handleNameChange} />
             </div>
             <div className={classes.group}>
               <h3>Enter Player 2 Name</h3>
-              <input type="text" value={names.player2} onChange={({target}) => setNames(prev => {
-                return {...prev, player2: target.value };
-              })} />
+              <input id='player2' type="text" value={names.player2} onChange={handleNameChange} />
             </div>
-            <button onClick={() => setShowGame('2players')}>Start</button>
+            <button id='players' onClick={handleClick}>Start</button>
             <h3>*Make Sure Your Opponent NOT Looking! :)</h3>
         </div>
       </div>}
@@ -36,11 +76,9 @@ const PlayerNames = ({setIsLoading , setMessage}) => {
         <div className={classes.content}>
             <div className={classes.group}>
               <h3>Enter Player Name</h3>
-              <input type="text" value={names.player1} onChange={({target}) => setNames(prev => {
-                return {...prev, player1: target.value };
-              })} />
+              <input id='player1' type="text" value={names.player1} onChange={handleNameChange} />
             </div>
-            <button onClick={() => setShowGame('ai')}>Start</button>
+            <button id='ai' onClick={handleClick}>Start</button>
         </div>
       </div>}
       {showGame === '2players' && <PlayerVsPlayer setIsLoading={setIsLoading} setMessage={setMessage} playersNames={names} />}
