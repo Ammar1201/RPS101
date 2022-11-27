@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import PlayerVsPlayer from './PlayerVsPlayer';
 import PlayerVsAI from './PlayerVsAI';
 import classes from './PlayerNames.module.css';
+import FreeMode from './FreeMode';
 
 const PlayerNames = ({setIsLoading , setMessage}) => {
   const { mode } = useParams();
@@ -18,7 +19,7 @@ const PlayerNames = ({setIsLoading , setMessage}) => {
         return {...prev, player1: target.value };
       });
     };
-    
+
     if(target.id === 'player2') {
       setNames(prev => {
         return {...prev, player2: target.value };
@@ -81,6 +82,7 @@ const PlayerNames = ({setIsLoading , setMessage}) => {
             <button id='ai' onClick={handleClick}>Start</button>
         </div>
       </div>}
+      {mode === 'freeMode' && <FreeMode setIsLoading={setIsLoading} setMessage={setMessage} />}
       {showGame === '2players' && <PlayerVsPlayer setIsLoading={setIsLoading} setMessage={setMessage} playersNames={names} />}
       {showGame === 'ai' && <PlayerVsAI setIsLoading={setIsLoading} setMessage={setMessage} playerName={names.player1} />}
     </div>

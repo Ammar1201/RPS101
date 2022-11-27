@@ -3,7 +3,7 @@ import Card from './utils/Card';
 import { objectsSrcName } from '../data';
 import classes from './Player.module.css';
 
-const Player = ({player, dispatch, name, setMessage, checkResult}) => {
+const Player = ({player, dispatch, name, setMessage, checkResult, mode}) => {
   const confirmChoice = () => {
     if(player.isPlaying) {
       if(player.chosenObjectId === null) {
@@ -22,10 +22,10 @@ const Player = ({player, dispatch, name, setMessage, checkResult}) => {
   return (
     <div className={classes.player}>
       <h2>{name}</h2>
-      <div className={classes.counts}>
+      {mode !== 'freeMode' && <div className={classes.counts}>
         <h3>Wins: {player.wins}</h3>
         <h3>Loses: {player.loses}</h3>
-      </div>
+      </div>}
       <div className={classes.object}>
         <h4>Chosen Object:</h4>
         <div className={classes.innerObject}>

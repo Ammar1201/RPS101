@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 import { objectsSrcName } from '../data';
 import Card from '../components/utils/Card';
 import classes from './ObjectDetails.module.css';
 
 const ObjectDetails = ({setIsLoading}) => {
   const { objectName } = useParams();
-  const [object, setObject] = useState({
+  // const [object, setObject] = useState({});
+
+  const object = {
     object: "nuke",
     winningOutcomes: [
         [
@@ -211,7 +213,7 @@ const ObjectDetails = ({setIsLoading}) => {
             "Cat"
         ]
     ]
-});
+}
 
   // useEffect(() => {
   //   const getObjectDetails = (url) => {

@@ -3,14 +3,14 @@ import Card from './utils/Card';
 import { objectsSrcName } from '../data';
 import classes from './Player.module.css';
 
-const AI = ({ai}) => {
+const AI = ({ai, mode}) => {
   return (
     <div className={classes.player}>
       <h2>AI</h2>
-      <div className={classes.counts}>
+      {mode !== 'freeMode' && <div className={classes.counts}>
         <h3>Wins: {ai.wins}</h3>
         <h3>Loses: {ai.loses}</h3>
-      </div>
+      </div>}
       <div className={classes.object}>
         <h4>Chosen Object:</h4>
         <div className={classes.innerObject}>
