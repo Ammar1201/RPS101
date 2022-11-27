@@ -137,6 +137,7 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames}) => {
         },
       })
         .then(data => {
+          dispatch({type: 'RESULT', payload: data.data});
           setData(data.data);
         })
         .catch(error => {

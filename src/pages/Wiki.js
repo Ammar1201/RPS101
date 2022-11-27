@@ -1,6 +1,8 @@
+import ObjectsMapWiki from "../components/utils/ObjectsMapWiki";
+
 const Wiki = () => {
   return ( <div>
-    Wiki
+    <ObjectsMapWiki />
   </div> );
 }
  

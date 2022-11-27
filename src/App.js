@@ -8,9 +8,8 @@ import Play from "./pages/Play";
 import ScoreBoard from "./pages/ScoreBoard";
 import Spinner from "./components/utils/Spinner";
 import PlayerNames from "./components/PlayerNames";
-// import PlayerVsPlayer from "./components/PlayerVsPlayer";
-// import PlayerVsAI from "./components/PlayerVsAI";
 import Message from "./components/utils/Message";
+import ObjectDetails from "./pages/ObjectDetails";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,6 +23,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/wiki" element={<Wiki />} />
+        <Route path="/wiki/:objectName" element={<ObjectDetails setIsLoading={setIsLoading} />} />
         <Route path="/play" element={<Play />} />
         <Route path="/play/:mode" element={<PlayerNames setIsLoading={setIsLoading} setMessage={setMessage} />} />
         <Route path="/scoreboard" element={<ScoreBoard />} />
