@@ -17,9 +17,6 @@
   align-items: center;
 }
 
-/* .title {
-  color: #fff;
-} */
 
 .title h1 {
   font-size: 5rem;
@@ -44,16 +41,6 @@
   text-align: center;
   gap: 2rem;
 }
-
-/* .content a {
-  text-decoration: none;
-  border: 1px solid black;
-  width: 200px;
-  height: 50px;
-  padding: 1rem 2rem;
-  margin-bottom: 1rem;
-  color: black;
-} */
 
 .content a {
   text-decoration: none;

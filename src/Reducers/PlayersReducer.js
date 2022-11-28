@@ -26,6 +26,7 @@ const checkRank = (points) => {
   return ranks[Math.floor(Math.random() * ranks.length)];
 };
 
+//* --------------------Player Vs Player----------------------------
 export const playersReducer = (state, action) => {
   if(action.type === 'PLAYER1_OBJECT_ID') {
     return {
@@ -136,8 +137,7 @@ export const playersReducer = (state, action) => {
   }
 }
 
-// ---------------------------- AI 
-
+//* ----------------------AI-------------------------------
 export const playersReducerAI = (state, action) => {
   if(action.type === 'PLAYER1_OBJECT_ID') {
     return {
@@ -216,7 +216,7 @@ export const playersReducerAI = (state, action) => {
   }
 }
 
-// ---------------------------- Free Mode
+//* ----------------------Free Mode-------------------------------
 export const playersReducerFreeMode = (state, action) => {
   if(action.type === 'PLAYER_OBJECT_ID') {
     return {

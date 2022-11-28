@@ -54,7 +54,6 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames}) => {
       .then(data => {
         dispatch({type: 'RESULT', payload: data.data});
         setData(data.data);
-        dispatch({type: 'DISABLE_PLAY_BUTTON'});
       })
       .catch(error => {
         console.log(error);
@@ -62,6 +61,7 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames}) => {
       .finally(() => setIsLoading(false));
     };
     getMatch('https://rps101.pythonanywhere.com/api/v1/', players.player1.chosenObjectId, players.player2.chosenObjectId);
+    dispatch({type: 'DISABLE_PLAY_BUTTON'});
   };
 
   const resetRound = () => {
