@@ -1,54 +1,24 @@
+const WINNING_POINTS = 50;
+const LOSING_POINTS = -20;
+
 const checkRank = (points) => {
-  // switch(points) {
-  //   case points => 0 && points <= 250:
-  //     return 'Beginner';
-  //   case points > 250 && points <= 500:
-  //     return 'Intermediate';
-  //   case points > 500 && points <= 750:
-  //     return 'Advanced';
-  //   default:
-  //     return 'Looser :)';
-  // }
-  
-  // if(points < 0){
-  //   console.log(points, 'No Rank!');
-  //   return 'No Rank!';
-  // }
-  
-  // if(points <= 50){
-  //   console.log(points, 'Beginner');
-  //   return 'Beginner';
-  // }
-  
-  // if(points <= 100 && points > 51){
-  //   console.log(points, 'Intermediate');
-  //   return 'Intermediate';
-  // }
-
-  // if(points <= 150 && points > 101){
-  //   console.log(points, 'Advanced');
-  //   return 'Advanced';
-  // }
-
-  // return 'Master!';
-
   if(points < 0){
     return 'No Rank!';
   }
   
-  if(points <= 250){
+  if(points < 250){
     return 'Beginner';
   }
   
-  if(points > 250 && points <= 500){
+  if(points >= 250 && points < 500){
     return 'Intermediate';
   }
 
-  if(points > 500 && points <= 750){
+  if(points >= 500 && points < 750){
     return 'Advanced';
   }
 
-  if(points > 750 && points <= 1000){
+  if(points >= 750 && points < 1000){
     return 'Master!';
   }
 
@@ -130,35 +100,35 @@ export const playersReducer = (state, action) => {
   }
   if(action.type === 'RESULT') {
     if(state.player1.chosenObjectId === action.payload.winner) {
-      const player1Rank = checkRank(state.player1.points + 50);
-      const player2Rank = checkRank(state.player2.points - 50);
+      const player1Rank = checkRank(state.player1.points + WINNING_POINTS);
+      const player2Rank = checkRank(state.player2.points + LOSING_POINTS);
       return {
         ...state,
         player1: {
           ...state.player1,
-          points: state.player1.points + 50,
+          points: state.player1.points + WINNING_POINTS,
           rank: player1Rank
         },
         player2: {
           ...state.player2,
-          points: state.player2.points - 50,
+          points: state.player2.points + LOSING_POINTS,
           rank: player2Rank
         }
       }
     }
     else {
-      const player1Rank = checkRank(state.player1.points - 50);
-      const player2Rank = checkRank(state.player2.points + 50);
+      const player1Rank = checkRank(state.player1.points + LOSING_POINTS);
+      const player2Rank = checkRank(state.player2.points + WINNING_POINTS);
       return {
         ...state,
         player1: {
           ...state.player1,
-          points: state.player1.points - 50,
+          points: state.player1.points + LOSING_POINTS,
           rank: player1Rank
         },
         player2: {
           ...state.player2,
-          points: state.player2.points + 50,
+          points: state.player2.points + WINNING_POINTS,
           rank: player2Rank
         }
       }
@@ -222,11 +192,11 @@ export const playersReducerAI = (state, action) => {
         ...state,
         player1: {
           ...state.player1,
-          points: state.player1.points + 50
+          points: state.player1.points + WINNING_POINTS
         },
         ai: {
           ...state.ai,
-          points: state.ai.points - 50
+          points: state.ai.points + LOSING_POINTS
         }
       }
     }
@@ -235,11 +205,11 @@ export const playersReducerAI = (state, action) => {
         ...state,
         player1: {
           ...state.player1,
-          points: state.player1.points - 50
+          points: state.player1.points + LOSING_POINTS
         },
         ai: {
           ...state.ai,
-          points: state.ai.points + 50
+          points: state.ai.points + WINNING_POINTS
         }
       }
     }

@@ -26,7 +26,7 @@ const App = () => {
         <Route path="/wiki/:objectName" element={<ObjectDetails setIsLoading={setIsLoading} />} />
         <Route path="/play" element={<Play />} />
         <Route path="/play/:mode" element={<PlayerNames setIsLoading={setIsLoading} setMessage={setMessage} />} />
-        <Route path="/scoreboard" element={<ScoreBoard />} />
+        <Route path="/scoreboard" element={<ScoreBoard setIsLoading={setIsLoading} />} />
       </Routes>
     </Fragment>
   );

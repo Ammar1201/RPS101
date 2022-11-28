@@ -4,8 +4,7 @@ import PlayerVsPlayer from './PlayerVsPlayer';
 import PlayerVsAI from './PlayerVsAI';
 import classes from './PlayerNames.module.css';
 import FreeMode from './FreeMode';
-import { ref, set, onValue } from "firebase/database";
-import { db } from '../firebase';
+import { writeUserData, readUserData } from '../firebase';
 
 const PlayerNames = ({setIsLoading , setMessage}) => {
   const { mode } = useParams();
@@ -18,27 +17,12 @@ const PlayerNames = ({setIsLoading , setMessage}) => {
   });
 
   useEffect(() => {
-    const readUserData = () => {
-      onValue(ref(db, 'users/'), (snapshot) => {
-        const data = snapshot.val();
-        setPreviousNames(data);
-      })
-    };
-    readUserData();
+    readUserData(setPreviousNames);
   }, []);
 
   const findUsername = (username) => {
     return Object.keys(previousNames).find(name => username === name);
   };
-
-  const writeUserData = (name) => {
-    set(ref(db, 'users/' + name), {
-      username: name,
-      points: 0,
-      rank: 'Beginner',
-    })
-    .catch(error => console.log(error));
-  }
 
   const handleNameChange = ({target}) => {
     if(target.id === 'player1') {

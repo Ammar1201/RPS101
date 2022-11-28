@@ -4,8 +4,7 @@ import Player from './Player';
 import classes from './PlayerVsPlayer.module.css';
 import axios from 'axios';
 import { playersReducer } from '../Reducers/PlayersReducer';
-import { ref, update } from "firebase/database";
-import { db } from '../firebase';
+import { updateUserData } from '../firebase';
 
 const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames}) => {
   const [data , setData] = useState(null);
@@ -27,15 +26,6 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames}) => {
     },
     disable: false
   });
-
-  function updateUserData(player) {
-    update(ref(db, 'users/' + player.name), {
-      username: player.name,
-      points: player.points,
-      rank: player.rank,
-    })
-    .catch(error => console.log(error));
-  }
 
   useEffect(()=>{
     updateUserData({name: playersNames.player1, points: players.player1.points, rank: players.player1.rank});
