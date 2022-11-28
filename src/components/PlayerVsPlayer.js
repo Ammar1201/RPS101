@@ -1,102 +1,11 @@
-import React, { useReducer, useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import ObjectsMap from "./utils/ObjectsMap";
 import Player from './Player';
 import classes from './PlayerVsPlayer.module.css';
 import axios from 'axios';
+import { playersReducer } from '../Reducers/PlayersReducer';
 import { ref, update } from "firebase/database";
 import { db } from '../firebase';
-
-const playersReducer = (state, action) => {
-  if(action.type === 'PLAYER1_OBJECT_ID') {
-    return {
-      ...state,
-      player1: {
-        ...state.player1,
-        chosenObjectId: action.id
-      }
-    }
-  }
-  if(action.type === 'PLAYER2_OBJECT_ID') {
-    return {
-      ...state,
-      player2: {
-        ...state.player2,
-        chosenObjectId: action.id
-      }
-    }
-  }
-  if(action.playerNumber === 1 && action.type === `${action.name}_DONE_PLAYING`) {
-    return {
-      ...state,
-      player1: {
-        ...state.player1,
-        isPlaying: false,
-      },
-      player2: {
-        ...state.player2,
-        isPlaying: true,
-      }
-    }
-  };
-  if(action.playerNumber === 2 && action.type === `${action.name}_DONE_PLAYING`) {
-    return {
-      ...state,
-      player2: {
-        ...state.player2,
-        isPlaying: false,
-      }
-    };
-  }
-  if(action.type === 'DISABLE_PLAY_BUTTON') {
-    return {
-      ...state,
-      disable: true
-    };
-  }
-  if(action.type === 'RESET_ROUND') {
-    return {
-      player1: {
-        ...state.player1,
-        isPlaying: true,
-        chosenObjectId: null,
-      },
-      player2: {
-        ...state.player2,
-        isPlaying: false,
-        chosenObjectId: null,
-      },
-      disable: false
-    };
-  }
-  if(action.type === 'RESULT') {
-    if(state.player1.chosenObjectId === action.payload.winner) {
-      return {
-        ...state,
-        player1: {
-          ...state.player1,
-          wins: state.player1.wins + 1
-        },
-        player2: {
-          ...state.player2,
-          loses: state.player2.loses + 1
-        }
-      }
-    }
-    else {
-      return {
-        ...state,
-        player1: {
-          ...state.player1,
-          loses: state.player1.loses + 1
-        },
-        player2: {
-          ...state.player2,
-          wins: state.player2.wins + 1
-        }
-      }
-    }
-  }
-}
 
 const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames}) => {
   const [data , setData] = useState(null);
@@ -118,6 +27,11 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames}) => {
     },
     disable: false
   });
+
+useEffect(()=>{
+  updateUserData({name: playersNames.player1, wins: players.player1.wins, loses: players.player1.loses});
+  updateUserData({name: playersNames.player2, wins: players.player2.wins, loses: players.player2.loses});
+},[players,playersNames])
 
   function updateUserData(player) {
     update(ref(db, 'users/' + player.name), {
@@ -150,6 +64,9 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames}) => {
       .then(data => {
         dispatch({type: 'RESULT', payload: data.data});
         setData(data.data);
+        dispatch({type: 'DISABLE_PLAY_BUTTON'});
+        // updateUserData({name: playersNames.player1, wins: players.player1.wins, loses: players.player1.loses});
+        // updateUserData({name: playersNames.player2, wins: players.player2.wins, loses: players.player2.loses});
       })
       .catch(error => {
         console.log(error);
@@ -157,9 +74,6 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames}) => {
       .finally(() => setIsLoading(false));
     };
     getMatch('https://rps101.pythonanywhere.com/api/v1/', players.player1.chosenObjectId, players.player2.chosenObjectId);
-    dispatch({type: 'DISABLE_PLAY_BUTTON'});
-    updateUserData({name: playersNames.player1, wins: players.player1.wins, loses: players.player1.loses});
-    updateUserData({name: playersNames.player2, wins: players.player2.wins, loses: players.player2.loses});
   };
 
   const resetRound = () => {

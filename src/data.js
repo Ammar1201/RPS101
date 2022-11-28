@@ -247,8 +247,8 @@ export const objectsSrcName = {
     name: 'Planet',
     src: '../assets/imgs/objects/Planet.png'
   },
-  Platinum: {
-    name: 'Platinum',
+  Platimum: {
+    name: 'Platimum',
     src: '../assets/imgs/objects/Platinum.gif'
   },
   Poison: {
@@ -339,7 +339,7 @@ export const objectsSrcName = {
     name: 'Sword',
     src: '../assets/imgs/objects/Sword.png'
   },
-  TV: {
+  'T.V.': {
     name: 'TV',
     src: '../assets/imgs/objects/TV.gif'
   },
@@ -367,7 +367,7 @@ export const objectsSrcName = {
     name: 'Turnip',
     src: '../assets/imgs/objects/Turnip.png'
   },
-  UFO: {
+  "U.F.O.": {
     name: 'UFO',
     src: '../assets/imgs/objects/UFO.png'
   },
@@ -375,7 +375,7 @@ export const objectsSrcName = {
     name: 'Vampire',
     src: '../assets/imgs/objects/Vampire.png'
   },
-  VideoGame: {
+  'Video Game': {
     name: 'VideoGame',
     src: '../assets/imgs/objects/VideoGame.gif'
   },

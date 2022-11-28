@@ -2,63 +2,15 @@ import React, { useReducer, useState } from 'react'
 import ObjectsMap from "./utils/ObjectsMap";
 import Player from './Player';
 import classes from './PlayerVsPlayer.module.css';
+import { playersReducerFreeMode } from '../Reducers/PlayersReducer';
 import axios from 'axios';
 import AI from './AI';
 
-const playersReducer = (state, action) => {
-  if(action.type === 'PLAYER_OBJECT_ID') {
-    return {
-      ...state,
-      player1: {
-        ...state.player1,
-        chosenObjectId: action.id
-      }
-    }
-  }
-  if(action.type === 'AI_OBJECT_ID') {
-    return {
-      ...state,
-      ai: {
-        ...state.ai,
-        chosenObjectId: action.id,
-        isPlaying: false
-      }
-    }
-  }
-  if(action.type === `PLAYER_DONE_PLAYING`) {
-    return {
-      ...state,
-      player1: {
-        ...state.player1,
-        isPlaying: false,
-      },
-      ai: {
-        ...state.ai,
-        isPlaying: true,
-      }
-    }
-  };
-  if(action.type === 'RESET_ROUND') {
-    return {
-      player1: {
-        ...state.player1,
-        isPlaying: true,
-        chosenObjectId: null,
-      },
-      ai: {
-        ...state.ai,
-        isPlaying: false,
-        chosenObjectId: null,
-      },
-      disable: false
-    };
-  }
-}
 
 const FreeMode = ({setIsLoading, setMessage}) => {
   const [data , setData] = useState(null);
 
-  const [players, dispatch] = useReducer(playersReducer, {
+  const [players, dispatch] = useReducer(playersReducerFreeMode, {
     player1: {
       isPlaying: true,
       chosenObjectId: null,
