@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react'
+import React, { useReducer, useState, useEffect } from 'react'
 import ObjectsMap from "./utils/ObjectsMap";
 import Player from './Player';
 import classes from './PlayerVsPlayer.module.css';
@@ -24,8 +24,12 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playerName}) => {
       chosenObjectId: null,
       wins: 0,
       loses: 0
-    },
+    }
   });
+
+  useEffect(()=>{
+    updateUserData({name: playerName.player1, wins: players.player1.wins, loses: players.player1.loses});
+  }, [players,playerName]);
 
   function updateUserData(player) {
     update(ref(db, 'users/' + player.name), {
@@ -52,17 +56,16 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playerName}) => {
           "Content-Type": "application/json"
         },
       })
-        .then(data => {
-          dispatch({type: 'RESULT', payload: data.data});
-          setData(data.data);
-        })
-        .catch(error => {
-          console.log(error);
-        })
-        .finally(() => setIsLoading(false));
+      .then(data => {
+        dispatch({type: 'RESULT', payload: data.data});
+        setData(data.data);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      .finally(() => setIsLoading(false));
     };
     getMatch('https://rps101.pythonanywhere.com/api/v1', players.player1.chosenObjectId);
-    updateUserData({name: playerName, wins: players.player1.wins, loses: players.player1.loses});
   };
 
   const resetRound = () => {

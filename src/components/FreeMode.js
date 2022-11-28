@@ -19,7 +19,7 @@ const FreeMode = ({setIsLoading, setMessage}) => {
     ai: {
       isPlaying: false,
       chosenObjectId: null,
-    },
+    }
   });
 
   const getObjectID = (id) => {
@@ -38,13 +38,13 @@ const FreeMode = ({setIsLoading, setMessage}) => {
           "Content-Type": "application/json"
         },
       })
-        .then(data => {
-          setData(data.data);
-        })
-        .catch(error => {
-          console.log(error);
-        })
-        .finally(() => setIsLoading(false));
+      .then(data => {
+        setData(data.data);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      .finally(() => setIsLoading(false));
     };
     getMatch('https://rps101.pythonanywhere.com/api/v1', players.player1.chosenObjectId);
   };

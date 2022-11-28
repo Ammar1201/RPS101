@@ -28,11 +28,6 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames}) => {
     disable: false
   });
 
-useEffect(()=>{
-  updateUserData({name: playersNames.player1, wins: players.player1.wins, loses: players.player1.loses});
-  updateUserData({name: playersNames.player2, wins: players.player2.wins, loses: players.player2.loses});
-},[players,playersNames])
-
   function updateUserData(player) {
     update(ref(db, 'users/' + player.name), {
       username: player.name,
@@ -41,6 +36,11 @@ useEffect(()=>{
     })
     .catch(error => console.log(error));
   }
+
+  useEffect(()=>{
+    updateUserData({name: playersNames.player1, wins: players.player1.wins, loses: players.player1.loses});
+    updateUserData({name: playersNames.player2, wins: players.player2.wins, loses: players.player2.loses});
+  }, [players,playersNames]);
 
   const getObjectID = (id) => {
     if(players.player1.isPlaying) {
