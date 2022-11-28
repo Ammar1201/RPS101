@@ -1,12 +1,21 @@
 .header {
   width: 100%;
   height: 5rem;
-  background-color: #044599;
+  /* background-color: #044599; */
   padding: 0 10%;
 }
 
 .header nav {
   height: 100%;
+  width: fit-content;
+  margin: auto;
+  /* background-color: black; */
+  background: linear-gradient(
+    90deg, #03a9f4,
+    #800080, #75609f, #8c198c, #03a9f4
+  );
+  opacity: 0.95;
+  border-radius: 25px;
 }
 
 .header ul {
@@ -25,7 +34,8 @@
 }
 
 .header a {
-  color: white;
+  color: #fff;
+  font-weight: bolder;
   text-decoration: none;
   font-size: 1.4rem;
 }
@@ -34,6 +44,7 @@
 .header a:active,
 .header a.active {
   color: #95bcf0;
+  /* color: black; */
   padding-bottom: 0.25rem;
   border-bottom: 4px solid #95bcf0;
 }

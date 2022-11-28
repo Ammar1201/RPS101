@@ -14,15 +14,15 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames}) => {
     player1: {
       isPlaying: true,
       chosenObjectId: null,
-      wins: 0,
-      loses: 0,
+      points: 0,
+      rank: 'Beginner',
       playerNumber: 1
     }, 
     player2: {
       isPlaying: false,
       chosenObjectId: null,
-      wins: 0,
-      loses: 0,
+      points: 0,
+      rank: 'Beginner',
       playerNumber: 2
     },
     disable: false
@@ -31,15 +31,15 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames}) => {
   function updateUserData(player) {
     update(ref(db, 'users/' + player.name), {
       username: player.name,
-      wins: player.wins,
-      loses: player.loses,
+      points: player.points,
+      rank: player.rank,
     })
     .catch(error => console.log(error));
   }
 
   useEffect(()=>{
-    updateUserData({name: playersNames.player1, wins: players.player1.wins, loses: players.player1.loses});
-    updateUserData({name: playersNames.player2, wins: players.player2.wins, loses: players.player2.loses});
+    updateUserData({name: playersNames.player1, points: players.player1.points, rank: players.player1.rank});
+    updateUserData({name: playersNames.player2, points: players.player2.points, rank: players.player2.rank});
   }, [players,playersNames]);
 
   const getObjectID = (id) => {
@@ -65,8 +65,6 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames}) => {
         dispatch({type: 'RESULT', payload: data.data});
         setData(data.data);
         dispatch({type: 'DISABLE_PLAY_BUTTON'});
-        // updateUserData({name: playersNames.player1, wins: players.player1.wins, loses: players.player1.loses});
-        // updateUserData({name: playersNames.player2, wins: players.player2.wins, loses: players.player2.loses});
       })
       .catch(error => {
         console.log(error);

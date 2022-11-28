@@ -34,8 +34,8 @@ const PlayerNames = ({setIsLoading , setMessage}) => {
   const writeUserData = (name) => {
     set(ref(db, 'users/' + name), {
       username: name,
-      wins: 0,
-      loses: 0,
+      points: 0,
+      rank: 'Beginner',
     })
     .catch(error => console.log(error));
   }

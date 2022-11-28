@@ -340,7 +340,7 @@ export const objectsSrcName = {
     src: '../assets/imgs/objects/Sword.png'
   },
   'T.V.': {
-    name: 'TV',
+    name: 'T.V.',
     src: '../assets/imgs/objects/TV.gif'
   },
   Tank: {
@@ -367,8 +367,8 @@ export const objectsSrcName = {
     name: 'Turnip',
     src: '../assets/imgs/objects/Turnip.png'
   },
-  "U.F.O.": {
-    name: 'UFO',
+  'U.F.O.': {
+    name: 'U.F.O.',
     src: '../assets/imgs/objects/UFO.png'
   },
   Vampire: {
@@ -376,7 +376,7 @@ export const objectsSrcName = {
     src: '../assets/imgs/objects/Vampire.png'
   },
   'Video Game': {
-    name: 'VideoGame',
+    name: 'Video Game',
     src: '../assets/imgs/objects/VideoGame.gif'
   },
   Vulture: {

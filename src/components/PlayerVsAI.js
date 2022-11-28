@@ -15,30 +15,30 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playerName}) => {
     player1: {
       isPlaying: true,
       chosenObjectId: null,
-      wins: 0,
-      loses: 0,
+      points: 0,
+      rank: 'Beginner',
       ai: true
     }, 
     ai: {
       isPlaying: false,
       chosenObjectId: null,
-      wins: 0,
-      loses: 0
+      points: 0,
+      rank: 'Beginner'
     }
   });
 
-  useEffect(()=>{
-    updateUserData({name: playerName.player1, wins: players.player1.wins, loses: players.player1.loses});
-  }, [players,playerName]);
-
-  function updateUserData(player) {
+  const updateUserData = (player) => {
     update(ref(db, 'users/' + player.name), {
       username: player.name,
-      wins: player.wins,
-      loses: player.loses,
+      points: player.points,
+      rank: player.rank,
     })
     .catch(error => console.log(error));
   }
+
+  useEffect(()=>{
+    updateUserData({name: playerName, points: players.player1.points, rank: players.player1.rank});
+  }, [players, playerName]);
 
   const getObjectID = (id) => {
     if(players.player1.isPlaying) {

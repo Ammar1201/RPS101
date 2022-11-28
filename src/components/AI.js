@@ -8,8 +8,8 @@ const AI = ({ai, mode}) => {
     <div className={classes.player}>
       <h2>AI</h2>
       {mode !== 'freeMode' && <div className={classes.counts}>
-        <h3>Wins: {ai.wins}</h3>
-        <h3>Loses: {ai.loses}</h3>
+        <h3>Points: {ai.points}</h3>
+        <h3>Rank: {ai.rank}</h3>
       </div>}
       <div className={classes.object}>
         <h4>Chosen Object:</h4>

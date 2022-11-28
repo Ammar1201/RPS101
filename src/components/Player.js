@@ -23,8 +23,8 @@ const Player = ({player, dispatch, name, setMessage, checkResult, mode}) => {
     <div className={classes.player}>
       <h2>{name}</h2>
       {mode !== 'freeMode' && <div className={classes.counts}>
-        <h3>Wins: {player.wins}</h3>
-        <h3>Loses: {player.loses}</h3>
+        <h3>Points: {player.points}</h3>
+        <h3>Rank: {player.rank}</h3>
       </div>}
       <div className={classes.object}>
         <h4>Chosen Object:</h4>

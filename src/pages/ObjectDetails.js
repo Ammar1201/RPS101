@@ -225,17 +225,18 @@ const ObjectDetails = ({setIsLoading}) => {
           "Content-Type": "application/json"
         },
       })
-        .then(data => {
-        console.log(data);
-          setObject(data.data);
-        })
-        .catch(error => {
-          console.log(error);
-        })
-        .finally(() => setIsLoading(false));
+      .then(data => {
+        setObject(data.data);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      .finally(() => setIsLoading(false));
     };
     getObjectDetails(`https://rps101.pythonanywhere.com/api/v1/objects/${objectName}`);
   }, [objectName, setIsLoading])
+
+  //TODO: when clicking outside an object card objectName === null, should fix it.
 
   return (
     <div>
