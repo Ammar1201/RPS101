@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import classes from './FullScreenMessage.module.css';
 
 const FullScreenMessage = ({messageContent, setFullScreenMessage}) => {

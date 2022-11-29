@@ -1,8 +1,8 @@
-import React, { useEffect, useReducer, useState } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 import ObjectsMap from "./utils/ObjectsMap";
 import Player from './Player';
 import classes from './PlayerVsPlayer.module.css';
-import axios from 'axios';
+import { getMatchResultsReq } from '../api';
 import { playersReducer } from '../Reducers/PlayersReducer';
 import { updateUserData } from '../firebase';
 
@@ -27,13 +27,6 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames, setFullScreenMe
     disable: false
   });
 
-  // useEffect(() => {
-  //   setFullScreenMessage('Game Started!');
-  //   setTimeout(() => {
-  //     setFullScreenMessage(`${playersNames.player1}'s Turn!`);
-  //   }, 2100);
-  // }, []);
-
   useEffect(()=>{
     updateUserData({name: playersNames.player1, points: players.player1.points, rank: players.player1.rank});
     updateUserData({name: playersNames.player2, points: players.player2.points, rank: players.player2.rank});
@@ -49,25 +42,7 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames, setFullScreenMe
   };
 
   const checkResultHandler = () => {
-    const getMatch = (url, object1, object2) => {
-      setIsLoading(true);
-      axios(url + `match?object_one=${object1}&object_two=${object2}`, {
-        mode: 'no-cors',
-        method: "get",
-        headers: {
-          "Content-Type": "application/json"
-        },
-      })
-      .then(data => {
-        dispatch({type: 'RESULT', payload: data.data});
-        setData(data.data);
-      })
-      .catch(error => {
-        console.log(error);
-      })
-      .finally(() => setIsLoading(false));
-    };
-    getMatch('https://rps101.pythonanywhere.com/api/v1/', players.player1.chosenObjectId, players.player2.chosenObjectId);
+    getMatchResultsReq(players.player1.chosenObjectId, players.player2.chosenObjectId, dispatch, setData, setIsLoading);
     dispatch({type: 'DISABLE_PLAY_BUTTON'});
     setFullScreenMessage('The Winner Is ...');
   };

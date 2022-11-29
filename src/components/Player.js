@@ -13,9 +13,6 @@ const Player = ({player, dispatch, name, names, setMessage, checkResultHandler, 
       if(player.playerNumber === 1) {
         setFullScreenMessage(`${names.player2}'s Turn!`);
       }
-      // if(player.playerNumber === 2) {
-      //   setFullScreenMessage('The Winner Is ...');
-      // }
       dispatch({type: `${name}_DONE_PLAYING`, playerNumber: player.playerNumber, name});
     }
     if(player.ai !== undefined) {

@@ -1,8 +1,8 @@
-import React, { useReducer, useState, useEffect } from 'react'
+import { useReducer, useState, useEffect } from 'react'
 import ObjectsMap from "./utils/ObjectsMap";
 import Player from './Player';
 import classes from './PlayerVsPlayer.module.css';
-import axios from 'axios';
+import { getMatchResultsReq } from '../api';
 import { playersReducerAI } from '../Reducers/PlayersReducer';
 import AI from './AI';
 import { updateUserData } from '../firebase';
@@ -38,25 +38,8 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playerName, setFullScreenMess
   };
 
   const checkResultHandler = (object2) => {
-    const getMatch = (url, object1) => {
-      setIsLoading(true);
-      axios(url + `/match?object_one=${object1}&object_two=${object2}`,{
-        mode: 'no-cors',
-        method: "get",
-        headers: {
-          "Content-Type": "application/json"
-        },
-      })
-      .then(data => {
-        dispatch({type: 'RESULT', payload: data.data});
-        setData(data.data);
-      })
-      .catch(error => {
-        console.log(error);
-      })
-      .finally(() => setIsLoading(false));
-    };
-    getMatch('https://rps101.pythonanywhere.com/api/v1', players.player1.chosenObjectId);
+    getMatchResultsReq(players.player1.chosenObjectId, object2, dispatch, setData, setIsLoading);
+    setFullScreenMessage('The Winner Is ...');
   };
 
   const resetRoundHandler = () => {
@@ -68,12 +51,13 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playerName, setFullScreenMess
   return ( 
     <div>
       <div className={classes.container}>
-        <Player player={players.player1} dispatch={dispatch} name={playerName} setMessage={setMessage} checkResultHandler={checkResultHandler} />
+        {console.log(players)}
+        <Player player={players.player1} dispatch={dispatch} name={playerName} setMessage={setMessage} checkResultHandler={checkResultHandler} setFullScreenMessage={setFullScreenMessage} />
         <div className={classes.content}>
           <h1 className={classes.vs}>{`${playerName} VS AI`}</h1>
           <h2>{players.player1.isPlaying ? `${playerName}'s Turn...` : !players.player1.isPlaying && !players.ai.isPlaying ? '' : `AI's Turn...`}</h2>
-          {data && <h2>{`${data.winner} ${data.outcome} ${data.loser}`}</h2>}
-          {data && <h2>{players.player1.chosenObjectId === data.winner ? 'You won. congrats!' : `AI won. Good Luck Next Time ${playerName}`}</h2>}
+          {data && <h2 className={classes.outcome}>{`${data.winner} ${data.outcome} ${data.loser}`}</h2>}
+          {data && <h2 className={classes.winner}>{players.player1.chosenObjectId === data.winner ? 'You won. congrats!' : `AI won. Good Luck Next Time ${playerName}`}</h2>}
           {data && <button onClick={resetRoundHandler}>Play Again</button>}
         </div>
         <AI ai={players.ai} name='AI' dispatch={dispatch} setMessage={setMessage} />

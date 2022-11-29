@@ -2,11 +2,11 @@ const WINNING_POINTS = 50;
 const LOSING_POINTS = -20;
 
 const checkRank = (points) => {
-  if(points < 0){
-    return 'No Rank!';
+  if(points < 100){
+    return 'Not Ranked!';
   }
   
-  if(points < 250){
+  if(points < 250 && points > 100){
     return 'Beginner';
   }
   
@@ -112,7 +112,7 @@ export const playersReducer = (state, action) => {
         },
         player2: {
           ...state.player2,
-          points: state.player2.points + LOSING_POINTS,
+          points: state.player2.points + LOSING_POINTS <= 0 ? 0 : state.player2.points + LOSING_POINTS,
           rank: player2Rank
         }
       }
@@ -124,7 +124,7 @@ export const playersReducer = (state, action) => {
         ...state,
         player1: {
           ...state.player1,
-          points: state.player1.points + LOSING_POINTS,
+          points: state.player1.points + LOSING_POINTS <= 0 ? 0 : state.player1.points + LOSING_POINTS,
           rank: player1Rank
         },
         player2: {
@@ -148,7 +148,7 @@ export const playersReducerAI = (state, action) => {
       }
     }
   }
-  if(action.type === 'AI_OBJECT_ID') {
+  if(action.type === 'AI_DONE_PLAYING') {
     return {
       ...state,
       ai: {
@@ -196,7 +196,7 @@ export const playersReducerAI = (state, action) => {
         },
         ai: {
           ...state.ai,
-          points: state.ai.points + LOSING_POINTS
+          points: state.ai.points + LOSING_POINTS <= 0 ? 0 : state.ai.points + LOSING_POINTS
         }
       }
     }
@@ -205,7 +205,7 @@ export const playersReducerAI = (state, action) => {
         ...state,
         player1: {
           ...state.player1,
-          points: state.player1.points + LOSING_POINTS
+          points: state.player1.points + LOSING_POINTS <= 0 ? 0 : state.player1.points + LOSING_POINTS,
         },
         ai: {
           ...state.ai,

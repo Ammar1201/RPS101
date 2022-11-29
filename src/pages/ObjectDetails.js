@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { getObjectDetailsReq } from '../api';
 import { objectsSrcName } from '../data';
 import Card from '../components/utils/Card';
 import classes from './ObjectDetails.module.css';
@@ -10,24 +10,7 @@ const ObjectDetails = ({setIsLoading}) => {
   const [object, setObject] = useState({});
 
   useEffect(() => {
-    const getObjectDetails = (url) => {
-      setIsLoading(true);
-      axios(url , {
-        mode: 'no-cors',
-        method: "get",
-        headers: {
-          "Content-Type": "application/json"
-        },
-      })
-      .then(data => {
-        setObject(data.data);
-      })
-      .catch(error => {
-        console.log(error);
-      })
-      .finally(() => setIsLoading(false));
-    };
-    getObjectDetails(`https://rps101.pythonanywhere.com/api/v1/objects/${objectName}`);
+    getObjectDetailsReq(objectName, setObject, setIsLoading);
   }, [objectName, setIsLoading])
 
   //TODO: when clicking outside an object card objectName === null, should fix it.

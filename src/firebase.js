@@ -27,7 +27,7 @@ export const writeUserData = (name) => {
   set(ref(db, 'users/' + name), {
     username: name,
     points: 0,
-    rank: 'Beginner',
+    rank: 'Not Ranked!',
   })
   .catch(error => console.log(error));
 }

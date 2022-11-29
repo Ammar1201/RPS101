@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PlayerVsPlayer from './PlayerVsPlayer';
 import PlayerVsAI from './PlayerVsAI';
@@ -93,6 +93,10 @@ const PlayerNames = ({setIsLoading , setMessage, setFullScreenMessage}) => {
 
       writeUserData(names.player1);
       setShowGame('ai');
+      setFullScreenMessage('Game Started!');
+      setTimeout(() => {
+        setFullScreenMessage(`${names.player1}'s Turn!`);
+      }, 2100);
       return;
     }
   };
