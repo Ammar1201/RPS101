@@ -38,7 +38,7 @@ const PlayerNames = ({setIsLoading , setMessage, setFullScreenMessage}) => {
     }
   }
 
-  const handleClick = ({target}) => {
+  const startGameHandler = ({target}) => {
     if(target.id === 'players') {
       if(names.player1 === '' || names.player2 === '') {
         setMessage(`Names can't be empty!`);
@@ -68,6 +68,10 @@ const PlayerNames = ({setIsLoading , setMessage, setFullScreenMessage}) => {
       writeUserData(names.player1);
       writeUserData(names.player2);
       setShowGame('2players');
+      setFullScreenMessage('Game Started!');
+      setTimeout(() => {
+        setFullScreenMessage(`${names.player1}'s Turn!`);
+      }, 2100);
       return;
     };
 
@@ -105,7 +109,7 @@ const PlayerNames = ({setIsLoading , setMessage, setFullScreenMessage}) => {
               <h3>Enter Player 2 Name</h3>
               <input id='player2' type="text" value={names.player2} onChange={handleNameChange} />
             </div>
-            <button id='players' onClick={handleClick}>Start</button>
+            <button id='players' onClick={startGameHandler}>Start</button>
             <h3>*Make Sure Your Opponent NOT Looking! :)</h3>
         </div>
       </div>}
@@ -115,12 +119,12 @@ const PlayerNames = ({setIsLoading , setMessage, setFullScreenMessage}) => {
               <h3>Enter Player Name</h3>
               <input id='player1' type="text" value={names.player1} onChange={handleNameChange} />
             </div>
-            <button id='ai' onClick={handleClick}>Start</button>
+            <button id='ai' onClick={startGameHandler}>Start</button>
         </div>
       </div>}
-      {mode === 'freeMode' && <FreeMode setIsLoading={setIsLoading} setFullScreenMessage={setFullScreenMessage} />}
-      {showGame === '2players' && <PlayerVsPlayer setIsLoading={setIsLoading} setMessage={setMessage} playersNames={names} />}
-      {showGame === 'ai' && <PlayerVsAI setIsLoading={setIsLoading} setMessage={setMessage} playerName={names.player1} />}
+      {mode === 'freeMode' && <FreeMode setIsLoading={setIsLoading} setMessage={setMessage} setFullScreenMessage={setFullScreenMessage} />}
+      {showGame === '2players' && <PlayerVsPlayer playersNames={names} setIsLoading={setIsLoading} setMessage={setMessage} setFullScreenMessage={setFullScreenMessage} />}
+      {showGame === 'ai' && <PlayerVsAI playerName={names.player1} setIsLoading={setIsLoading} setMessage={setMessage} setFullScreenMessage={setFullScreenMessage} />}
     </div>
   )
 }

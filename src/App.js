@@ -15,7 +15,7 @@ import FullScreenMessage from "./components/utils/FullScreenMessage";
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const [fullScreenMessage, setFullScreenMessage] = useState('test');
+  const [fullScreenMessage, setFullScreenMessage] = useState('');
   return (
     <Fragment>
       <Header />

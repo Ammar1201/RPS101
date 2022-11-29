@@ -17,6 +17,24 @@
   align-items: center;
 }
 
+.title {
+  position: relative;
+}
+
+.title::before {
+  content: "";
+  width: 110%;
+  height: 110%;
+  background-color: gray;
+  opacity: .7;
+  border-radius: 25px;
+  box-shadow: 5px 5px 5px rgba(255, 255, 255, .5), -5px -5px 5px rgba(255, 255, 255, .5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
 
 .title h1 {
   font-size: 5rem;

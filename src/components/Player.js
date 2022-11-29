@@ -3,19 +3,25 @@ import Card from './utils/Card';
 import { objectsSrcName } from '../data';
 import classes from './Player.module.css';
 
-const Player = ({player, dispatch, name, setMessage, checkResult, mode, setFullScreenMessage}) => {
-  const confirmChoice = () => {
+const Player = ({player, dispatch, name, names, setMessage, checkResultHandler, mode, setFullScreenMessage}) => {
+  const confirmChoiceHandler = () => {
     if(player.isPlaying) {
       if(player.chosenObjectId === null) {
-        setMessage('Please select an object');
+        setMessage('Please select an object!');
         return;
       }
+      if(player.playerNumber === 1) {
+        setFullScreenMessage(`${names.player2}'s Turn!`);
+      }
+      // if(player.playerNumber === 2) {
+      //   setFullScreenMessage('The Winner Is ...');
+      // }
       dispatch({type: `${name}_DONE_PLAYING`, playerNumber: player.playerNumber, name});
     }
     if(player.ai !== undefined) {
       const index = Math.floor(Math.random() * Object.keys(objectsSrcName).length);
       dispatch({type: 'AI_DONE_PLAYING', id: Object.keys(objectsSrcName)[index]});
-      checkResult(Object.keys(objectsSrcName)[index]);
+      checkResultHandler(Object.keys(objectsSrcName)[index]);
       setFullScreenMessage('The Winner Is ...');
     }
   };
@@ -33,7 +39,7 @@ const Player = ({player, dispatch, name, setMessage, checkResult, mode, setFullS
           {player.chosenObjectId && <Card object={objectsSrcName[player.chosenObjectId]} />}
         </div>
       </div>
-      <button disabled={!player.isPlaying} onClick={confirmChoice}>Confirm Choice</button>
+      <button disabled={!player.isPlaying} onClick={confirmChoiceHandler}>Confirm Choice</button>
     </div>
   )
 }

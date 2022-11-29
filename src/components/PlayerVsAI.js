@@ -8,7 +8,7 @@ import AI from './AI';
 import { updateUserData } from '../firebase';
 
 
-const PlayerVSPlayer = ({setIsLoading, setMessage, playerName}) => {
+const PlayerVSPlayer = ({setIsLoading, setMessage, playerName, setFullScreenMessage}) => {
   const [data , setData] = useState(null);
 
   const [players, dispatch] = useReducer(playersReducerAI, {
@@ -37,7 +37,7 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playerName}) => {
     }
   };
 
-  const checkResult = (object2) => {
+  const checkResultHandler = (object2) => {
     const getMatch = (url, object1) => {
       setIsLoading(true);
       axios(url + `/match?object_one=${object1}&object_two=${object2}`,{
@@ -59,21 +59,22 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playerName}) => {
     getMatch('https://rps101.pythonanywhere.com/api/v1', players.player1.chosenObjectId);
   };
 
-  const resetRound = () => {
+  const resetRoundHandler = () => {
     dispatch({type: 'RESET_ROUND'});
     setData(null);
+    setFullScreenMessage(`${playerName}'s Turn!`);
   };
 
   return ( 
     <div>
       <div className={classes.container}>
-        <Player player={players.player1} dispatch={dispatch} name={playerName} setMessage={setMessage} checkResult={checkResult} />
+        <Player player={players.player1} dispatch={dispatch} name={playerName} setMessage={setMessage} checkResultHandler={checkResultHandler} />
         <div className={classes.content}>
           <h1 className={classes.vs}>{`${playerName} VS AI`}</h1>
-          <h2>{players.player1.isPlaying ? `${playerName} Choosing...` : !players.player1.isPlaying && !players.ai.isPlaying ? '' : 'AI Choosing...'}</h2>
+          <h2>{players.player1.isPlaying ? `${playerName}'s Turn...` : !players.player1.isPlaying && !players.ai.isPlaying ? '' : `AI's Turn...`}</h2>
           {data && <h2>{`${data.winner} ${data.outcome} ${data.loser}`}</h2>}
           {data && <h2>{players.player1.chosenObjectId === data.winner ? 'You won. congrats!' : `AI won. Good Luck Next Time ${playerName}`}</h2>}
-          {data && <button onClick={resetRound}>Play Again</button>}
+          {data && <button onClick={resetRoundHandler}>Play Again</button>}
         </div>
         <AI ai={players.ai} name='AI' dispatch={dispatch} setMessage={setMessage} />
       </div>
