@@ -3,7 +3,7 @@ import Card from './utils/Card';
 import { objectsSrcName } from '../data';
 import classes from './Player.module.css';
 
-const Player = ({player, dispatch, name, setMessage, checkResult, mode}) => {
+const Player = ({player, dispatch, name, setMessage, checkResult, mode, setFullScreenMessage}) => {
   const confirmChoice = () => {
     if(player.isPlaying) {
       if(player.chosenObjectId === null) {
@@ -14,8 +14,9 @@ const Player = ({player, dispatch, name, setMessage, checkResult, mode}) => {
     }
     if(player.ai !== undefined) {
       const index = Math.floor(Math.random() * Object.keys(objectsSrcName).length);
-      dispatch({type: 'AI_OBJECT_ID', id: Object.keys(objectsSrcName)[index]});
+      dispatch({type: 'AI_DONE_PLAYING', id: Object.keys(objectsSrcName)[index]});
       checkResult(Object.keys(objectsSrcName)[index]);
+      setFullScreenMessage('The Winner Is ...');
     }
   };
 

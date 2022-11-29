@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react'
+import React, { useReducer, useState, useEffect } from 'react'
 import ObjectsMap from "./utils/ObjectsMap";
 import Player from './Player';
 import classes from './PlayerVsPlayer.module.css';
@@ -7,7 +7,7 @@ import axios from 'axios';
 import AI from './AI';
 
 
-const FreeMode = ({setIsLoading, setMessage}) => {
+const FreeMode = ({setIsLoading, setFullScreenMessage}) => {
   const [data , setData] = useState(null);
 
   const [players, dispatch] = useReducer(playersReducerFreeMode, {
@@ -21,6 +21,13 @@ const FreeMode = ({setIsLoading, setMessage}) => {
       chosenObjectId: null,
     }
   });
+
+  useEffect(() => {
+    setFullScreenMessage('Game Started!');
+    setTimeout(() => {
+      setFullScreenMessage('Player 1 is playing!');
+    }, 2100);
+  }, [setFullScreenMessage]);
 
   const getObjectID = (id) => {
     if(players.player1.isPlaying) {
@@ -52,12 +59,13 @@ const FreeMode = ({setIsLoading, setMessage}) => {
   const resetRound = () => {
     dispatch({type: 'RESET_ROUND'});
     setData(null);
+    setFullScreenMessage('Player 1 is playing!');
   };
 
   return ( 
     <div>
       <div className={classes.container}>
-        <Player player={players.player1} dispatch={dispatch} name='PLAYER' setMessage={setMessage} checkResult={checkResult} mode='freeMode' />
+        <Player player={players.player1} dispatch={dispatch} name='PLAYER' setFullScreenMessage={setFullScreenMessage} checkResult={checkResult} mode='freeMode' />
         <div className={classes.content}>
           <h1 className={classes.vs}>Player VS AI</h1>
           <h2>{players.player1.isPlaying ? `PLAYER Choosing...` : !players.player1.isPlaying && !players.ai.isPlaying ? '' : 'AI Choosing...'}</h2>
@@ -65,7 +73,7 @@ const FreeMode = ({setIsLoading, setMessage}) => {
           {data && <h2>{players.player1.chosenObjectId === data.winner ? 'You won. congrats!' : `AI won. Good Luck Next Time!`}</h2>}
           {data && <button onClick={resetRound}>Play Again</button>}
         </div>
-        <AI ai={players.ai} name='AI' dispatch={dispatch} setMessage={setMessage} mode='freeMode' />
+        <AI ai={players.ai} name='AI' dispatch={dispatch} setFullScreenMessage={setFullScreenMessage} mode='freeMode' />
       </div>
       <ObjectsMap getObjectID={getObjectID} />
     </div> 

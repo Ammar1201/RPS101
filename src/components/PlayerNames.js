@@ -6,7 +6,7 @@ import classes from './PlayerNames.module.css';
 import FreeMode from './FreeMode';
 import { writeUserData, readUserData } from '../firebase';
 
-const PlayerNames = ({setIsLoading , setMessage}) => {
+const PlayerNames = ({setIsLoading , setMessage, setFullScreenMessage}) => {
   const { mode } = useParams();
   const [showGame, setShowGame] = useState('');
   const [previousNames, setPreviousNames] = useState([]);
@@ -118,7 +118,7 @@ const PlayerNames = ({setIsLoading , setMessage}) => {
             <button id='ai' onClick={handleClick}>Start</button>
         </div>
       </div>}
-      {mode === 'freeMode' && <FreeMode setIsLoading={setIsLoading} setMessage={setMessage} />}
+      {mode === 'freeMode' && <FreeMode setIsLoading={setIsLoading} setFullScreenMessage={setFullScreenMessage} />}
       {showGame === '2players' && <PlayerVsPlayer setIsLoading={setIsLoading} setMessage={setMessage} playersNames={names} />}
       {showGame === 'ai' && <PlayerVsAI setIsLoading={setIsLoading} setMessage={setMessage} playerName={names.player1} />}
     </div>

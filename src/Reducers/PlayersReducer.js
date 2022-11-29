@@ -227,7 +227,7 @@ export const playersReducerFreeMode = (state, action) => {
       }
     }
   }
-  if(action.type === 'AI_OBJECT_ID') {
+  if(action.type === 'AI_DONE_PLAYING') {
     return {
       ...state,
       ai: {
