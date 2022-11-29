@@ -12,10 +12,14 @@
   font-size: 3rem;
   font-weight: bold;
   height: 15vh;
-  position: relative;
 }
 
-.title::before {
+.title h1 {
+  position: relative;
+  padding: 1.5rem 2.5rem;
+}
+
+.title h1::before {
   content: "";
   position: absolute;
   width: 100%;

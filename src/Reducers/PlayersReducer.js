@@ -6,7 +6,7 @@ const checkRank = (points) => {
     return 'Not Ranked!';
   }
   
-  if(points < 250 && points > 100){
+  if(points <= 250 && points > 100){
     return 'Beginner';
   }
   

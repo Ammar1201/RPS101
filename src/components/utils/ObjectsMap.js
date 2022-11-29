@@ -1,17 +1,24 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { objectsSrcName } from '../../data';
 import Card from './Card';
 import classes from './ObjectsMap.module.css';
 
-const ObjectsMap = ({getObjectID}) => {
+const ObjectsMap = ({getObjectID, wiki}) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [objects, setObjects] = useState(objectsSrcName);
+  const [objectID, setObjectID] = useState(null);
 
   const sendID = ({target}) => {
     if (target.id === '') {
       return;
     }
-    getObjectID(target.id);
+    if(wiki !== 'wiki') {
+      getObjectID(target.id);
+    }
+    if(wiki === 'wiki') {
+      setObjectID(target.id);
+    }
     setSearchQuery('');
     setObjects(objectsSrcName);
   };
@@ -34,11 +41,17 @@ const ObjectsMap = ({getObjectID}) => {
         <label>Search for Object:</label>
         <input type="text" value={searchQuery} placeholder='search...' onChange={searchObject} />
       </div>
+      {wiki !== 'wiki' && <div className={classes.container}  onClickCapture={sendID}>
+        {Object.values(objects).map(object => {
+          return ( <Card object={object} key={object.name} /> );
+        })}
+      </div>}
+      {wiki === 'wiki' && <Link to={`/wiki/${objectID}`}>
       <div className={classes.container}  onClickCapture={sendID}>
         {Object.values(objects).map(object => {
           return ( <Card object={object} key={object.name} /> );
         })}
-      </div>
+      </div></Link>}
     </div> 
   );
 }
