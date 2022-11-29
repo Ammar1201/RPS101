@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from './utils/Card';
-import { objectsSrcName } from '../data';
+import { objectsSrcName, objectsSrcNameKEYS } from '../data';
 import classes from './Player.module.css';
 
 const Player = ({player, dispatch, name, names, setMessage, checkResultHandler, mode, setFullScreenMessage}) => {
@@ -16,9 +16,9 @@ const Player = ({player, dispatch, name, names, setMessage, checkResultHandler, 
       dispatch({type: `${name}_DONE_PLAYING`, playerNumber: player.playerNumber, name});
     }
     if(player.ai !== undefined) {
-      const index = Math.floor(Math.random() * Object.keys(objectsSrcName).length);
-      dispatch({type: 'AI_DONE_PLAYING', id: Object.keys(objectsSrcName)[index]});
-      checkResultHandler(Object.keys(objectsSrcName)[index]);
+      const index = Math.floor(Math.random() * objectsSrcNameKEYS.length);
+      dispatch({type: 'AI_DONE_PLAYING', id: objectsSrcNameKEYS[index]});
+      checkResultHandler(objectsSrcNameKEYS[index]);
       setFullScreenMessage('The Winner Is ...');
     }
   };

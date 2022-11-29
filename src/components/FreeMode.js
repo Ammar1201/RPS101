@@ -3,7 +3,7 @@ import ObjectsMap from "./utils/ObjectsMap";
 import Player from './Player';
 import classes from './PlayerVsPlayer.module.css';
 import { playersReducerFreeMode } from '../Reducers/PlayersReducer';
-import { getMatchResultsReq } from '../api';
+import { getMatchResultReq } from '../api';
 import AI from './AI';
 
 
@@ -15,7 +15,7 @@ const FreeMode = ({setIsLoading, setFullScreenMessage, setMessage}) => {
       isPlaying: true,
       chosenObjectId: null,
       ai: true
-    }, 
+    },
     ai: {
       isPlaying: false,
       chosenObjectId: null,
@@ -35,8 +35,8 @@ const FreeMode = ({setIsLoading, setFullScreenMessage, setMessage}) => {
     }
   };
 
-  const checkResult = (object2) => {
-    getMatchResultsReq(players.player1.chosenObjectId, object2, dispatch, setData, setIsLoading);
+  const checkResultHandler = (object) => {
+    getMatchResultReq(players.player1.chosenObjectId, object, dispatch, setData, setIsLoading);
   };
 
   const resetRound = () => {
@@ -48,7 +48,7 @@ const FreeMode = ({setIsLoading, setFullScreenMessage, setMessage}) => {
   return ( 
     <div>
       <div className={classes.container}>
-        <Player player={players.player1} dispatch={dispatch} name='PLAYER' setMessage={setMessage} setFullScreenMessage={setFullScreenMessage} checkResult={checkResult} mode='freeMode' />
+        <Player player={players.player1} name='PLAYER' dispatch={dispatch} setMessage={setMessage} setFullScreenMessage={setFullScreenMessage} checkResultHandler={checkResultHandler} mode='freeMode' />
         <div className={classes.content}>
           <h1 className={classes.vs}>Player VS AI</h1>
           <h2>{players.player1.isPlaying ? `PLAYER's Turn...` : !players.player1.isPlaying && !players.ai.isPlaying ? '' : `AI's Turn...`}</h2>
@@ -56,7 +56,7 @@ const FreeMode = ({setIsLoading, setFullScreenMessage, setMessage}) => {
           {data && <h2 className={classes.winner}>{players.player1.chosenObjectId === data.winner ? 'You won. congrats!' : `AI won. Good Luck Next Time!`}</h2>}
           {data && <button onClick={resetRound}>Play Again</button>}
         </div>
-        <AI ai={players.ai} name='AI' dispatch={dispatch} setFullScreenMessage={setFullScreenMessage} mode='freeMode' />
+        <AI ai={players.ai} mode='freeMode' />
       </div>
       <ObjectsMap getObjectID={getObjectID} />
     </div> 

@@ -68,7 +68,7 @@ export const playersReducer = (state, action) => {
         isPlaying: true,
       }
     }
-  };
+  }
   if(action.playerNumber === 2 && action.type === `${action.name}_DONE_PLAYING`) {
     return {
       ...state,
@@ -82,7 +82,7 @@ export const playersReducer = (state, action) => {
     return {
       ...state,
       disable: true
-    };
+    }
   }
   if(action.type === 'RESET_ROUND') {
     return {
@@ -97,7 +97,7 @@ export const playersReducer = (state, action) => {
         chosenObjectId: null,
       },
       disable: false
-    };
+    }
   }
   if(action.type === 'RESULT') {
     if(state.player1.chosenObjectId === action.payload.winner) {
@@ -137,7 +137,7 @@ export const playersReducer = (state, action) => {
   }
 }
 
-//* ----------------------AI-------------------------------
+//* ------------------------AI--------------------------------------
 export const playersReducerAI = (state, action) => {
   if(action.type === 'PLAYER1_OBJECT_ID') {
     return {
@@ -160,7 +160,6 @@ export const playersReducerAI = (state, action) => {
   }
   if(action.type === `${action.name}_DONE_PLAYING`) {
     return {
-      ...state,
       player1: {
         ...state.player1,
         isPlaying: false,
@@ -170,7 +169,7 @@ export const playersReducerAI = (state, action) => {
         isPlaying: true,
       }
     }
-  };
+  }
   if(action.type === 'RESET_ROUND') {
     return {
       player1: {
@@ -182,14 +181,12 @@ export const playersReducerAI = (state, action) => {
         ...state.ai,
         isPlaying: false,
         chosenObjectId: null,
-      },
-      disable: false
-    };
+      }
+    }
   }
   if(action.type === 'RESULT') {
     if(state.player1.chosenObjectId === action.payload.winner) {
       return {
-        ...state,
         player1: {
           ...state.player1,
           points: state.player1.points + WINNING_POINTS
@@ -202,7 +199,6 @@ export const playersReducerAI = (state, action) => {
     }
     else {
       return {
-        ...state,
         player1: {
           ...state.player1,
           points: state.player1.points + LOSING_POINTS <= 0 ? 0 : state.player1.points + LOSING_POINTS,
@@ -216,7 +212,7 @@ export const playersReducerAI = (state, action) => {
   }
 }
 
-//* ----------------------Free Mode-------------------------------
+//* ----------------------Free Mode---------------------------------
 export const playersReducerFreeMode = (state, action) => {
   if(action.type === 'PLAYER_OBJECT_ID') {
     return {
@@ -237,9 +233,8 @@ export const playersReducerFreeMode = (state, action) => {
       }
     }
   }
-  if(action.type === `PLAYER_DONE_PLAYING`) {
+  if(action.type === `${action.name}_DONE_PLAYING`) {
     return {
-      ...state,
       player1: {
         ...state.player1,
         isPlaying: false,
@@ -249,7 +244,10 @@ export const playersReducerFreeMode = (state, action) => {
         isPlaying: true,
       }
     }
-  };
+  }
+  if(action.type === 'RESULT') {
+    return {...state};
+  }
   if(action.type === 'RESET_ROUND') {
     return {
       player1: {
@@ -261,8 +259,7 @@ export const playersReducerFreeMode = (state, action) => {
         ...state.ai,
         isPlaying: false,
         chosenObjectId: null,
-      },
-      disable: false
-    };
+      }
+    }
   }
 }

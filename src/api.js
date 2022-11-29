@@ -3,7 +3,7 @@ import axios from 'axios';
 const getMatchUrl = 'https://rps101.pythonanywhere.com/api/v1/';
 const getObjectDetailsUrl = 'https://rps101.pythonanywhere.com/api/v1/objects/';
 
-export const getMatchResultsReq = (object1, object2, dispatch, setData, setIsLoading) => {
+export const getMatchResultReq = (object1, object2, dispatch, setData, setIsLoading) => {
   setIsLoading(true);
   axios(getMatchUrl + `match?object_one=${object1}&object_two=${object2}`, {
     mode: 'no-cors',

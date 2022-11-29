@@ -404,3 +404,5 @@ export const objectsSrcName = {
     src: '../assets/imgs/objects/Woman.png'
   },
 };
+
+export const objectsSrcNameKEYS = Object.keys(objectsSrcName);

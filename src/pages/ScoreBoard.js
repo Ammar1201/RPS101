@@ -36,12 +36,12 @@ const ScoreBoard = ({setIsLoading}) => {
   return ( 
     <div className={classes.container}>
       <div className={classes.title}>
-        <h1>Top 5 Players</h1>
+        <h1>Top Players</h1>
       </div>
       <div className={classes.table}>
         <div className={classes.tableHeader}>
           <span>No.</span>
-          <span>UserName</span>
+          <span>Username</span>
           <span>Points</span>
           <span>Rank</span>
         </div>

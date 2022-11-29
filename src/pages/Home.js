@@ -11,7 +11,7 @@ const Home = () => {
               Welcome To RPS - 101 
             </h1>
             <h2>
-              RPS = Rock, Papers, Scissors With 101 Objects
+              RPS - Rock, Papers, Scissors With 101 Objects
             </h2>
           </div>
         </div>

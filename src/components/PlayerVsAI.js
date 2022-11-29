@@ -2,7 +2,7 @@ import { useReducer, useState, useEffect } from 'react'
 import ObjectsMap from "./utils/ObjectsMap";
 import Player from './Player';
 import classes from './PlayerVsPlayer.module.css';
-import { getMatchResultsReq } from '../api';
+import { getMatchResultReq } from '../api';
 import { playersReducerAI } from '../Reducers/PlayersReducer';
 import AI from './AI';
 import { updateUserData } from '../firebase';
@@ -37,9 +37,8 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playerName, setFullScreenMess
     }
   };
 
-  const checkResultHandler = (object2) => {
-    getMatchResultsReq(players.player1.chosenObjectId, object2, dispatch, setData, setIsLoading);
-    setFullScreenMessage('The Winner Is ...');
+  const checkResultHandler = (object) => {
+    getMatchResultReq(players.player1.chosenObjectId, object, dispatch, setData, setIsLoading);
   };
 
   const resetRoundHandler = () => {
@@ -51,7 +50,6 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playerName, setFullScreenMess
   return ( 
     <div>
       <div className={classes.container}>
-        {console.log(players)}
         <Player player={players.player1} dispatch={dispatch} name={playerName} setMessage={setMessage} checkResultHandler={checkResultHandler} setFullScreenMessage={setFullScreenMessage} />
         <div className={classes.content}>
           <h1 className={classes.vs}>{`${playerName} VS AI`}</h1>

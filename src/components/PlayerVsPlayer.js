@@ -2,7 +2,7 @@ import { useEffect, useReducer, useState } from 'react'
 import ObjectsMap from "./utils/ObjectsMap";
 import Player from './Player';
 import classes from './PlayerVsPlayer.module.css';
-import { getMatchResultsReq } from '../api';
+import { getMatchResultReq } from '../api';
 import { playersReducer } from '../Reducers/PlayersReducer';
 import { updateUserData } from '../firebase';
 
@@ -42,7 +42,7 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames, setFullScreenMe
   };
 
   const checkResultHandler = () => {
-    getMatchResultsReq(players.player1.chosenObjectId, players.player2.chosenObjectId, dispatch, setData, setIsLoading);
+    getMatchResultReq(players.player1.chosenObjectId, players.player2.chosenObjectId, dispatch, setData, setIsLoading);
     dispatch({type: 'DISABLE_PLAY_BUTTON'});
     setFullScreenMessage('The Winner Is ...');
   };
