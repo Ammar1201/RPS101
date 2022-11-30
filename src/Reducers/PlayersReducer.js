@@ -117,7 +117,7 @@ export const playersReducer = (state, action) => {
         }
       }
     }
-    else if(state.player2.chosenObjectId === action.payload.winner) {
+    else {
       const player1Rank = checkRank(state.player1.points + LOSING_POINTS);
       const player2Rank = checkRank(state.player2.points + WINNING_POINTS);
       return {
@@ -133,9 +133,6 @@ export const playersReducer = (state, action) => {
           rank: player2Rank
         }
       }
-    }
-    else {
-      return state;
     }
   }
 }
@@ -200,7 +197,7 @@ export const playersReducerAI = (state, action) => {
         }
       }
     }
-    else if(state.player2.chosenObjectId === action.payload.winner) {
+    else {
       return {
         player1: {
           ...state.player1,
@@ -211,9 +208,6 @@ export const playersReducerAI = (state, action) => {
           points: state.ai.points + WINNING_POINTS
         }
       }
-    }
-    else {
-      return state;
     }
   }
 }

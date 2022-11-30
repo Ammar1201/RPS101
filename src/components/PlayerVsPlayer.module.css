@@ -9,7 +9,23 @@
   align-items: center;
   row-gap: 2rem;
   width: 20%;
+  /* position: relative;
+  margin-top: 20px; */
 }
+
+/* .content::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: .8;
+  background-color: gray;
+  border-radius: 25px;
+  box-shadow: 5px 5px 5px rgba(255, 255, 255, .5), -5px -5px 5px rgba(255, 255, 255, .5);
+  z-index: -1;
+} */
 
 .winner {
   color: yellow;
@@ -76,7 +92,7 @@
   100% { background-position: 400%; }
 }
 
-@media (max-width: 668px) {
+@media (max-width: 1007px) {
   .container {
     display: none;
   }
@@ -98,7 +114,7 @@
   }
 }
 
-@media (min-width: 669px) and (max-width: 1024px) {
+/* @media (min-width: 669px) and (max-width: 1024px) {
   .container {
     margin-top: 50px;
   }
@@ -123,6 +139,56 @@
   
   .outcome {
     font-size: 1.5rem;
+  }
+} */
+
+@media (min-width: 1008px) and (max-width: 1600px) {
+  .container {
+    margin-top: 50px;
+  }
+
+  .content {
+    margin-bottom: 100px;
+    text-align: center;
+    width: 40%;
+  }
+
+  .content button {
+    padding: 1rem 2rem;
+    width: 200px;
+  }
+
+  .content h1 {
+    font-size: 2.5rem;
+  }
+
+  .winner {
+    font-size: 2.5rem;
+  }
+  
+  .outcome {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 1601px) and (max-width: 2100px) {
+  .container {
+    margin-top: 50px;
+  }
+
+  .content {
+    margin-bottom: 100px;
+    text-align: center;
+    width: 40%;
+  }
+
+  .content button {
+    padding: 1rem 2rem;
+    width: 200px;
+  }
+
+  .content h1 {
+    font-size: 2rem;
   }
 }
 
