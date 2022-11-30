@@ -20,7 +20,7 @@
 
 .counts h3 {
   font-size: 1.5rem;
-  font-weight: bold;;
+  font-weight: bold;
 }
 
 .object {
@@ -85,4 +85,38 @@
 @keyframes animation {
   0% { background-position: 0%; }
   100% { background-position: 400%; }
+}
+
+@media (min-width: 669px) and (max-width: 1024px) {
+  .player h2 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .counts h3 {
+    font-size: 1.5rem;
+  }
+  
+  .object h4 {
+    font-size: 1.5rem;
+  }
+
+  .player button {
+    padding: 1rem 2rem;
+    width: 200px;
+  }
+}
+
+@media (max-height: 700px) {
+  .player {
+    margin-bottom: 220px;
+    /* min-height: 20vh; */
+  }
+}
+
+@media (min-height: 700px) and (max-height: 1000px) {
+  .player {
+    margin-bottom: 100px;
+    /* min-height: 20vh; */
+  }
 }

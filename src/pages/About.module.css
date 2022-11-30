@@ -114,3 +114,66 @@
 .modes::before  {
   height: 100%;
 }
+
+@media (max-width: 668px) {
+  .title, .mobile,
+  .instructions, .cards {
+    display: none;
+  }
+
+  .about {
+    background: url('../../public/assets/imgs/backgrounds/mobile.png') no-repeat center center/contain;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+  }
+
+  .about::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: #fff;
+    z-index: -1;
+  }
+}
+
+@media (min-width: 669px) and (max-width:1250px) {
+  .cards {
+    flex-direction: column;
+    padding: 1rem 2rem;
+    margin-top: 300px;
+    row-gap: 2rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .twoPlayersMode {
+    margin-bottom: 150px;
+  }
+
+  .mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modes {
+    width: 100%;
+    height: fit-content;
+  }
+
+  .card, .title,
+  .instructions {
+    width: 85%;
+    padding: 1rem 2rem;
+  }
+
+  .card h3 {
+    font-size: 2.5rem;
+  }
+  
+  .card h4 {
+    font-size: 1.5rem;  
+  }
+}

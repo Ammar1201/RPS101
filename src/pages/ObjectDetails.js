@@ -18,7 +18,7 @@ const ObjectDetails = ({setIsLoading}) => {
   }, [objectName, setIsLoading, findObject])
 
   return (
-    <div>
+    <div className={classes.mobile}>
       {!findObject && <Navigate to='/404' />}
       <div className={classes.title}>
         <h1>Winning Outcomes Of Object <span style={{color: 'blue'}}>{objectName}</span></h1>

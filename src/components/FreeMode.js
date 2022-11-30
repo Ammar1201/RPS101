@@ -46,7 +46,7 @@ const FreeMode = ({setIsLoading, setFullScreenMessage, setMessage}) => {
   };
 
   return ( 
-    <div>
+    <div className={classes.mobile}>
       <div className={classes.container}>
         <Player player={players.player1} name='PLAYER' dispatch={dispatch} setMessage={setMessage} setFullScreenMessage={setFullScreenMessage} checkResultHandler={checkResultHandler} mode='freeMode' />
         <div className={classes.content}>

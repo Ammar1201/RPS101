@@ -3,7 +3,7 @@ import classes from './Play.module.css';
 
 const Play = () => {
   return (
-    <div>
+    <div className={classes.mobile}>
       <div className={classes.container}>
         <div className={classes.header}>
           <div className={classes.title}>

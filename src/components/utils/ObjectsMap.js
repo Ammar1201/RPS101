@@ -36,7 +36,7 @@ const ObjectsMap = ({getObjectID, wiki}) => {
   };
 
   return ( 
-    <div>
+    <div className={classes.mobile}>
       <div className={classes.search}>
         <label>Search for Object:</label>
         <input type="text" value={searchQuery} placeholder='search...' onChange={searchObject} />

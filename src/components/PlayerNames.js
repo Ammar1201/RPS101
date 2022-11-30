@@ -40,7 +40,7 @@ const PlayerNames = ({setIsLoading , setMessage, setFullScreenMessage}) => {
 
   const startGameHandler = ({target}) => {
     if(target.id === 'players') {
-      if(names.player1 === '' || names.player2 === '') {
+      if(names.player1.trim().length === 0 || names.player2.trim().length === 0) {
         setMessage(`Names can't be empty!`);
         return;
       }
@@ -76,7 +76,7 @@ const PlayerNames = ({setIsLoading , setMessage, setFullScreenMessage}) => {
     };
 
     if(target.id === 'ai') {
-      if(names.player1 === '') {
+      if(names.player1.trim().length === 0) {
         setMessage(`Your Name can't be empty!`);
         return;
       }
@@ -102,17 +102,16 @@ const PlayerNames = ({setIsLoading , setMessage, setFullScreenMessage}) => {
   };
 
   return (
-    <div>
-      {console.log(mode)}
+    <div className={classes.mobile}>
       {mode === 'player-vs-player' && !showGame && <div className={classes.container}>
         <div className={classes.content}>
             <div className={classes.group}>
               <h3>Enter Player 1 Name</h3>
-              <input id='player1' type="text" value={names.player1} onChange={handleNameChange} />
+              <input id='player1' type="text" value={names.player1} onChange={handleNameChange} required />
             </div>
             <div className={classes.group}>
               <h3>Enter Player 2 Name</h3>
-              <input id='player2' type="text" value={names.player2} onChange={handleNameChange} />
+              <input id='player2' type="text" value={names.player2} onChange={handleNameChange} required />
             </div>
             <button id='players' onClick={startGameHandler}>Start</button>
             <h3>*Make Sure Your Opponent NOT Looking! :)</h3>
@@ -122,7 +121,7 @@ const PlayerNames = ({setIsLoading , setMessage, setFullScreenMessage}) => {
         <div className={classes.content}>
             <div className={classes.group}>
               <h3>Enter Player Name</h3>
-              <input id='player1' type="text" value={names.player1} onChange={handleNameChange} />
+              <input id='player1' type="text" value={names.player1} onChange={handleNameChange} required />
             </div>
             <button id='ai' onClick={startGameHandler}>Start</button>
         </div>

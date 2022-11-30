@@ -26,11 +26,9 @@
 
 @keyframes slideIn{
   from{
-    /* transform: translateX(-1000px); */
     transform: scale(0);
   }
   to{
-    /* transform: translateX(0); */
     transform: scale(100%);
   }
 }
@@ -39,5 +37,11 @@
   .modal {
     left: calc(50% - 20rem);
     width: 40rem;
+  }
+}
+
+@media (min-width: 669px) and (max-width: 1024px) {
+  .content h1 {
+    font-size: 6rem;
   }
 }

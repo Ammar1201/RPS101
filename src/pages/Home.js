@@ -3,7 +3,7 @@ import classes from './Home.module.css';
 
 const Home = () => {
   return ( 
-    <div>
+    <div className={classes.mobile}>
       <div className={classes.container}>
         <div className={classes.header}>
           <div className={classes.title}>

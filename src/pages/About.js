@@ -17,7 +17,7 @@ const About = () => {
           <p>2. You can search for a specific object using the search bar shown on the game screen.</p>
           <p>Points and Rank will be calculated automatically.</p>
         </div>
-        <div>
+        <div className={classes.mobile}>
           <div className={classes.card + ' ' + classes.twoPlayersMode}>
               <h3>Player Vs Player Mode</h3>
               <h4>Two players playing against each other</h4>
