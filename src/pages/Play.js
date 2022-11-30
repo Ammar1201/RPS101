@@ -24,7 +24,7 @@ const Play = () => {
             </div>
         </div>
         <div className={classes.freeMode}>
-          <Link to='/play/freeMode' >Free Mode</Link>
+          <Link to='/play/free-mode' >Free Mode</Link>
         </div>
       </div>
     </div> 

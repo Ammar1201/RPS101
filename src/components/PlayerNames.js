@@ -103,6 +103,7 @@ const PlayerNames = ({setIsLoading , setMessage, setFullScreenMessage}) => {
 
   return (
     <div>
+      {console.log(mode)}
       {mode === 'player-vs-player' && !showGame && <div className={classes.container}>
         <div className={classes.content}>
             <div className={classes.group}>
@@ -129,7 +130,7 @@ const PlayerNames = ({setIsLoading , setMessage, setFullScreenMessage}) => {
       {mode === 'free-mode' && <FreeMode setIsLoading={setIsLoading} setMessage={setMessage} setFullScreenMessage={setFullScreenMessage} />}
       {showGame === '2players' && <PlayerVsPlayer playersNames={names} setIsLoading={setIsLoading} setMessage={setMessage} setFullScreenMessage={setFullScreenMessage} />}
       {showGame === 'ai' && <PlayerVsAI playerName={names.player1} setIsLoading={setIsLoading} setMessage={setMessage} setFullScreenMessage={setFullScreenMessage} />}
-      {mode !== 'free-mode' && mode !== 'player-vs-ai' && mode !== 'player-vs-player' && <Navigate to='/404' />}
+      {mode !== 'player-vs-player' && mode !== 'player-vs-ai' && mode !== 'free-mode' && <Navigate to='/404' />}
     </div>
   )
 }
