@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { getObjectDetailsReq } from '../api';
 import { objectsSrcName } from '../data';
 import Card from '../components/utils/Card';
@@ -9,14 +9,17 @@ const ObjectDetails = ({setIsLoading}) => {
   const { objectName } = useParams();
   const [object, setObject] = useState({});
 
-  useEffect(() => {
-    getObjectDetailsReq(objectName, setObject, setIsLoading);
-  }, [objectName, setIsLoading])
+  const findObject = Object.keys(objectsSrcName).includes(objectName);
 
-  //TODO: when clicking outside an object card objectName === null, should fix it.
+  useEffect(() => {
+    if(findObject && objectName !== undefined && objectName !== null) {
+      getObjectDetailsReq(objectName, setObject, setIsLoading);
+    }
+  }, [objectName, setIsLoading, findObject])
 
   return (
     <div>
+      {!findObject && <Navigate to='/404' />}
       <div className={classes.title}>
         <h1>Winning Outcomes Of Object <span style={{color: 'blue'}}>{objectName}</span></h1>
       </div>

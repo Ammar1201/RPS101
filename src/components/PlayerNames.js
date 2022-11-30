@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import PlayerVsPlayer from './PlayerVsPlayer';
 import PlayerVsAI from './PlayerVsAI';
 import classes from './PlayerNames.module.css';
@@ -126,9 +126,10 @@ const PlayerNames = ({setIsLoading , setMessage, setFullScreenMessage}) => {
             <button id='ai' onClick={startGameHandler}>Start</button>
         </div>
       </div>}
-      {mode === 'freeMode' && <FreeMode setIsLoading={setIsLoading} setMessage={setMessage} setFullScreenMessage={setFullScreenMessage} />}
+      {mode === 'free-mode' && <FreeMode setIsLoading={setIsLoading} setMessage={setMessage} setFullScreenMessage={setFullScreenMessage} />}
       {showGame === '2players' && <PlayerVsPlayer playersNames={names} setIsLoading={setIsLoading} setMessage={setMessage} setFullScreenMessage={setFullScreenMessage} />}
       {showGame === 'ai' && <PlayerVsAI playerName={names.player1} setIsLoading={setIsLoading} setMessage={setMessage} setFullScreenMessage={setFullScreenMessage} />}
+      {mode !== 'free-mode' && mode !== 'player-vs-ai' && mode !== 'player-vs-player' && <Navigate to='/404' />}
     </div>
   )
 }
