@@ -15,8 +15,9 @@ const About = () => {
           <p>There is two ways to choose an object:</p>
           <p>1. You can choose one from the list of objects shown on the game screen.</p>
           <p>2. You can search for a specific object using the search bar shown on the game screen.</p>
+          <p>Points and Rank will be calculated automatically.</p>
         </div>
-        <div lassName={classes.modes}>
+        <div>
           <div className={classes.card + ' ' + classes.twoPlayersMode}>
               <h3>Player Vs Player Mode</h3>
               <h4>Two players playing against each other</h4>

@@ -11,6 +11,7 @@ import PlayerNames from "./components/PlayerNames";
 import Message from "./components/utils/Message";
 import ObjectDetails from "./pages/ObjectDetails";
 import FullScreenMessage from "./components/utils/FullScreenMessage";
+import NotFound from "./components/utils/NotFound";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/play" element={<Play />} />
         <Route path="/play/:mode" element={<PlayerNames setIsLoading={setIsLoading} setMessage={setMessage} setFullScreenMessage={setFullScreenMessage} />} />
         <Route path="/scoreboard" element={<ScoreBoard setIsLoading={setIsLoading} />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Fragment>
   );
