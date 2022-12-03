@@ -2,7 +2,7 @@ const WINNING_POINTS = 50;
 const LOSING_POINTS = -20;
 
 const checkRank = (points) => {
-  if(points < 100){
+  if(points <= 100){
     return 'Not Ranked!';
   }
   
