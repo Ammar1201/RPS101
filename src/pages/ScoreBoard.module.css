@@ -53,17 +53,13 @@
   justify-content: space-around;
   align-items: center;
   color: red;
-  font-size: 3rem;
+  font-size: 2rem;
   border-bottom: 1px solid #fff;
   padding: 25px 0;
 }
 
 .row {
   color: #fff;
-}
-
-.row:first-child {
-  color: red;
 }
 
 .row:last-child {
@@ -105,7 +101,7 @@
   }
 }
 
-@media (max-width: 968px) {
+@media (min-width: 669px) and (max-width: 968px) {
   .title {
     font-size: 1rem;
   }
@@ -124,7 +120,7 @@
   }
 }
 
-@media (min-width: 968px) and (max-width: 1440px) {
+@media (min-width: 969px) and (max-width: 1440px) {
   .title {
     font-size: 2rem;
   }
@@ -188,7 +184,7 @@
   }
   
   .table span {
-    width: 120px;
+    width: 250px;
   }
 
   .tableHeader,

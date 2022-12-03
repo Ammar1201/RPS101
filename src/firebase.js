@@ -32,9 +32,9 @@ export const writeUserData = (name) => {
   .catch(error => console.log(error));
 }
 
-export const readUserData = (setPreviousNames) => {
+export const readUserData = (callback) => {
   onValue(ref(db, 'users/'), (snapshot) => {
     const data = snapshot.val();
-    setPreviousNames(data);
+    callback(data);
   })
 };

@@ -16,14 +16,14 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playerName, setFullScreenMess
       isPlaying: true,
       chosenObjectId: null,
       points: 0,
-      rank: 'Beginner',
+      rank: 'Not Ranked!',
       ai: true
     }, 
     ai: {
       isPlaying: false,
       chosenObjectId: null,
       points: 0,
-      rank: 'Beginner'
+      rank: 'Not Ranked!',
     }
   });
 

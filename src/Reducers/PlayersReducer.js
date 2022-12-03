@@ -10,15 +10,15 @@ const checkRank = (points) => {
     return 'Beginner';
   }
   
-  if(points >= 250 && points < 500){
+  if(points <= 500 && points > 250){
     return 'Intermediate';
   }
 
-  if(points >= 500 && points < 750){
+  if(points <= 750 && points > 500){
     return 'Advanced';
   }
 
-  if(points >= 750 && points < 1000){
+  if(points <= 1000 && points > 750){
     return 'Master!';
   }
 

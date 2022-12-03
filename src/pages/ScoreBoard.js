@@ -1,39 +1,30 @@
 import { useEffect, useState } from "react";
-import { ref, onValue } from "firebase/database";
-import { db } from '../firebase';
+import { readUserData } from '../firebase';
 import classes from './ScoreBoard.module.css';
 
-const ScoreBoard = ({setIsLoading}) => {
+const ScoreBoard = () => {
   const [users, setUsers] = useState([]);
-  const MAX_TOP_PLAYERS = 5;
+  const MAX_TOP_PLAYERS = 5; // amount of players to show on the scoreboard.
 
   useEffect(() => {
-    const readUserData = () => {
-      setIsLoading(true);
-      onValue(ref(db, 'users/'), (snapshot) => {
-        const data = snapshot.val();
-        sortUsers(data);
-      });
-      setIsLoading(false);
-    };
-    readUserData();
-  }, [setIsLoading]);
+    readUserData(sortUsers);
+  }, []);
 
   const sortUsers = (scores) => {
-    const tmp = Object.values(scores).sort((a, b) => {
+    const sortedUsersByScores = Object.values(scores).sort((a, b) => {
       if (a.points > b.points) return 1;
       if (a.points < b.points) return -1;
       return 0;
     });
 
-    if(tmp.length  > MAX_TOP_PLAYERS) {
-      setUsers(tmp.reverse().slice(0, MAX_TOP_PLAYERS));
+    if(sortedUsersByScores.length  > MAX_TOP_PLAYERS) {
+      setUsers(sortedUsersByScores.reverse().slice(0, MAX_TOP_PLAYERS));
       return;
     }
-    setUsers(tmp.reverse());
+    setUsers(sortedUsersByScores.reverse());
   };
 
-  return ( 
+  return (
     <div className={classes.container}>
       <div className={classes.title}>
         <h1>Top Players</h1>

@@ -14,14 +14,14 @@ const PlayerVSPlayer = ({setIsLoading, setMessage, playersNames, setFullScreenMe
       isPlaying: true,
       chosenObjectId: null,
       points: 0,
-      rank: 'No Rank!',
+      rank: 'Not Ranked!',
       playerNumber: 1
     }, 
     player2: {
       isPlaying: false,
       chosenObjectId: null,
       points: 0,
-      rank: 'No Rank!',
+      rank: 'Not Ranked!',
       playerNumber: 2
     },
     disable: false
